@@ -1,0 +1,5 @@
+tr:hover > td {
+    background: #5c4ac7;
+    color: white;
+    cursor: pointer;
+}
