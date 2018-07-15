@@ -1,0 +1,23 @@
+language: node_js
+
+sudo: required
+dist: trusty
+
+services:
+  - docker
+
+branches:
+  only:
+    - master
+
+cache:
+  yarn: true
+
+script:
+  - yarn run build
+
+deploy:
+  provider: script
+  script: ci/deploy.sh
+  on:
+    branch: master
