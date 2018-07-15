@@ -1,6 +1,5 @@
-import { put, call, takeLatest } from 'redux-saga/effects'
+import { put, takeLatest } from 'redux-saga/effects'
 import { actionCreators, actionTypes } from '../reducers/dashboard'
-import http from '../client/http'
 
 /**
  * Lists all statistics

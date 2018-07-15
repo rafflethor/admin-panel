@@ -1,9 +1,6 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { Page, Content } from '../../components/page'
 import MainLayout from '../../layouts/MainLayout'
-import defaultAvatar from '../../layouts/images/avatar/6.jpg'
 import './BartolosPage.css'
 
 /**

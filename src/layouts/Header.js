@@ -29,7 +29,7 @@ export class Header extends React.Component {
                     <div className="navbar-collapse">
                         <ul className="navbar-nav mr-auto mt-md-0">
                             <li className="nav-item">
-                                <a className="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)">
+                                <a className="nav-link nav-toggler hidden-md-up text-muted  ">
                                     <i className="mdi mdi-menu"></i>
                                 </a>
                             </li>
@@ -42,7 +42,6 @@ export class Header extends React.Component {
                         <ul className="navbar-nav my-lg-0">
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle text-muted  "
-                                   href="#"
                                    data-toggle="dropdown"
                                    aria-haspopup="true"
                                    aria-expanded="false">
@@ -50,11 +49,11 @@ export class Header extends React.Component {
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right animated zoomIn">
                                     <ul className="dropdown-user">
-                                        <li><a href="#"><i className="ti-user"></i> Profile</a></li>
-                                        <li><a href="#"><i className="ti-wallet"></i> Balance</a></li>
-                                        <li><a href="#"><i className="ti-email"></i> Inbox</a></li>
-                                        <li><a href="#"><i className="ti-settings"></i> Setting</a></li>
-                                        <li><a href="#"><i className="fa fa-power-off"></i> Logout</a></li>
+                                        <li><a><i className="ti-user"></i> Profile</a></li>
+                                        <li><a><i className="ti-wallet"></i> Balance</a></li>
+                                        <li><a><i className="ti-email"></i> Inbox</a></li>
+                                        <li><a><i className="ti-settings"></i> Setting</a></li>
+                                        <li><a><i className="fa fa-power-off"></i> Logout</a></li>
                                     </ul>
                                 </div>
                             </li>
