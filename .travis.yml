@@ -6,6 +6,11 @@ dist: trusty
 services:
   - docker
 
+install:
+  - sudo apt-get --yes install snapd
+  - sudo snap install kubectl --classic
+  - sudo ln -s /snap/bin/kubectl /usr/local/bin/kubectl
+
 branches:
   only:
     - master
@@ -14,6 +19,7 @@ cache:
   yarn: true
 
 script:
+  - yarn install
   - yarn run build
 
 deploy:
