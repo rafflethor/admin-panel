@@ -2,7 +2,7 @@
 
 set -o pipefail
 set -o errexit
-set -o nounset"
+set -o nounset
 
 # DESCRIPTION
 # ===========
@@ -22,4 +22,4 @@ set -o nounset"
 #
 # Finally the scripts deletes the server certificate
 
-echo "DEPLOYED!
+echo "DEPLOYED!"
