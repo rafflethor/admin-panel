@@ -3,8 +3,8 @@ import { parseError } from './utils'
 export default (client) => ({
     save (event) {
         const query = `
-          mutation SaveEvent($event: SaveEventInput!) {
-            saveEvent(event: $event) {
+          mutation SaveOrganization($organization: SaveOrganizationInput!) {
+            saveOrganization(organization: $organization) {
               id
               name
               description
@@ -14,7 +14,7 @@ export default (client) => ({
         const data = {
             query,
             variables: {
-                event: {
+                organization: {
                     name: event.name,
                     description: event.description
                 }

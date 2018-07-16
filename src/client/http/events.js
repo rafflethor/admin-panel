@@ -3,8 +3,8 @@ import { parseError } from './utils'
 export default (client) => ({
     list () {
         const query = `
-          query ListAllEvents($max: Int!, $offset: Int!) {
-            listAllEvents(max: $max, offset: $offset) {
+          query ListAllOrganizations($max: Int!, $offset: Int!) {
+            listAllOrganizations(max: $max, offset: $offset) {
               id
               name
               description
@@ -21,7 +21,7 @@ export default (client) => ({
 
         return client
             .post('', data)
-            .then(resp => resp.data.getIn(['data', 'listAllEvents']))
+            .then(resp => resp.data.getIn(['data', 'listAllOrganizations']))
             .catch(parseError)
     }
 })
