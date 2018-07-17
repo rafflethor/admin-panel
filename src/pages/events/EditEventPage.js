@@ -1,6 +1,5 @@
 import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
-import { Map } from 'immutable'
 import { Table, Column } from '../../components/table'
 import { Form } from 'react-validify'
 import { connect } from 'react-redux'
@@ -17,13 +16,6 @@ const VALIDATION_RULES = {
     description: 'required|min:8'
 }
 
-const rows = [
-    Map({ id: 'sdfsd', name: 'name' }),
-    Map({ id: 'sdfsd', name: 'name' }),
-    Map({ id: 'sdfsd', name: 'name' }),
-    Map({ id: 'sdfsd', name: 'name' })
-]
-
 /**
  * This page adds a new event
  *
@@ -34,12 +26,15 @@ class EditEventPage extends React.Component {
     componentDidMount () {
         this.props.getDetailInfoRequest(this.props.match.params.id)
     }
+
     /**
      * Renders new event form
      *
      * @since 0.1.0
      */
     render () {
+        const isAddRaffleEnabled = this.props.match.params.id ? true : false
+
         return (
             <MainLayout>
                 <Page title='Edit Event'>
@@ -47,24 +42,32 @@ class EditEventPage extends React.Component {
                         <Form rules={VALIDATION_RULES}>
                             <Text name="name"
                                   label="Name"
-                                  text={this.props.event.get('name')} />
+                                  text={this.props.name} />
                             <Text name="description"
                                   label="Description"
-                                  text={this.props.event.get('description')} />
+                                  text={this.props.description} />
                             <label htmlFor="raffles">Raffles</label>
                             <Table
                                 onClick={(row) => console.log(row)}
-                                rows={rows} >
+                                rows={this.props.raffles} >
                                 <Column value="id" head="ID" />
                                 <Column value="name" head="Name" />
+                                <Column value="type" head="Type" />
                             </Table>
                         </Form>
                         <hr />
                         <Button
                             submit
                             type="button"
-                            value="Add Event"
+                            value="Save Event"
                             onClick={(values) => this.props.newEventRequest(values)} />
+                        <Button
+                            submit
+                            className={isAddRaffleEnabled ? 'ml-2' : 'disabled ml-2'}
+                            enabled={isAddRaffleEnabled}
+                            type="button"
+                            value="Add New Raffle"
+                            onClick={(event) => console.log('add new raffle: ', event)} />
                     </Content>
                 </Page>
             </MainLayout>
@@ -83,7 +86,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
     return {
-        event: state.event.getIn(['event'])
+        name: state.event.getIn(['event', 'name']),
+        description: state.event.getIn(['event', 'description']),
+        raffles: state.event.getIn(['event', 'raffles'])
     }
 }
 

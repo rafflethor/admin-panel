@@ -33,6 +33,11 @@ export default (client) => ({
                 id
                 name
                 description
+                raffles {
+                   id
+                   name
+                   type
+                }
               }
             }
         `

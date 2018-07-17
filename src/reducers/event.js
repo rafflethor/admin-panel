@@ -34,8 +34,7 @@ export const actionTypes = {
 export const initialState = Map({
     isLoading: false,
     error: null,
-    event: Map(),
-    raffles: List()
+    event: Map({raffles: List()})
 })
 
 /**
@@ -56,7 +55,6 @@ const eventReducer = (state = initialState, action) => {
             return state
                 .set('isLoading', false)
                 .set('event', action.event)
-                .set('raffles', action.raffles)
 
         case actionTypes.EVENT.NEW.FAILURE:
         case actionTypes.EVENT.SHOW.FAILURE:
