@@ -25,5 +25,29 @@ export default (client) => ({
             .post('', data)
             .then(resp => resp.data.getIn(['data', 'saveEvent']))
             .catch(parseError)
+    },
+    detail (eventId) {
+        const query = `
+            query EventDetail($id: String) {
+              organization(id: $id) {
+                id
+                name
+                description
+              }
+            }
+        `
+        const data = {
+            query,
+            variables: {
+                id: eventId
+            }
+        }
+
+        return client
+            .post('', data)
+            .then(resp => {
+                return resp.data.getIn(['data', 'organization'])
+            })
+            .catch(parseError)
     }
 })

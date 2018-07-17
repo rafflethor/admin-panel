@@ -4,7 +4,6 @@ import { push } from 'react-router-redux'
 import http from '../client/http'
 
 /**
- * Lists all events
  *
  * @since 0.1.0
  */
@@ -25,6 +24,39 @@ export function* saveEventRequest() {
     }
 }
 
+export function* showEventRequest() {
+    while (true) {
+        const { eventId } = yield take(actionTypes.EVENT.SHOW.REQUEST)
+
+        if (eventId) {
+            try {
+                yield put(push(`/events/${eventId}`))
+            } catch (e) {
+                console.error(e)
+                yield put(actionCreators.showEventFailure(e))
+            }
+        }
+    }
+}
+
+export function* getEventDetailRequest() {
+    while (true) {
+        const { eventId } = yield take(actionTypes.EVENT.DETAIL.REQUEST)
+
+        if (eventId) {
+            try {
+                const organization = yield call(http.event.detail, eventId)
+                yield put(actionCreators.getDetailInfoSuccess(organization))
+            } catch (e) {
+                console.error(e)
+                yield put(actionCreators.getDetailInfoFailure(e))
+            }
+        }
+    }
+}
+
 export default [
-    fork(saveEventRequest)
+    fork(saveEventRequest),
+    fork(showEventRequest),
+    fork(getEventDetailRequest)
 ]

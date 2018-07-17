@@ -1,4 +1,4 @@
-import { Map } from 'immutable'
+import { List, Map } from 'immutable'
 
 /**
  * Possible types of action
@@ -9,6 +9,21 @@ export const actionTypes = {
             REQUEST: '@rafflethor/EVENT/NEW/REQUEST',
             SUCCESS: '@rafflethor/EVENT/NEW/SUCCESS',
             FAILURE: '@rafflethor/EVENT/NEW/FAILURE'
+        },
+        SHOW: {
+            REQUEST: '@rafflethor/EVENT/SHOW/REQUEST',
+            SUCCESS: '@rafflethor/EVENT/SHOW/SUCCESS',
+            FAILURE: '@rafflethor/EVENT/SHOW/FAILURE'
+        },
+        DETAIL: {
+            REQUEST: '@rafflethor/EVENT/DETAIL/REQUEST',
+            SUCCESS: '@rafflethor/EVENT/DETAIL/SUCCESS',
+            FAILURE: '@rafflethor/EVENT/DETAIL/FAILURE'
+        },
+        UPDATE: {
+            REQUEST: '@rafflethor/EVENT/UPDATE/REQUEST',
+            SUCCESS: '@rafflethor/EVENT/UPDATE/SUCCESS',
+            FAILURE: '@rafflethor/EVENT/UPDATE/FAILURE'
         }
     }
 }
@@ -19,7 +34,8 @@ export const actionTypes = {
 export const initialState = Map({
     isLoading: false,
     error: null,
-    event: Map()
+    event: Map(),
+    raffles: List()
 })
 
 /**
@@ -27,18 +43,28 @@ export const initialState = Map({
 const eventReducer = (state = initialState, action) => {
     switch(action.type) {
         case actionTypes.EVENT.NEW.REQUEST:
+        case actionTypes.EVENT.SHOW.REQUEST:
+        case actionTypes.EVENT.DETAIL.REQUEST:
+        case actionTypes.EVENT.UPDATE.REQUEST:
             return state
                 .set('isLoading', true)
-                .set('events', action.event)
 
         case actionTypes.EVENT.NEW.SUCCESS:
+        case actionTypes.EVENT.SHOW.SUCCESS:
+        case actionTypes.EVENT.DETAIL.SUCCESS:
+        case actionTypes.EVENT.UPDATE.SUCCESS:
             return state
                 .set('isLoading', false)
+                .set('event', action.event)
+                .set('raffles', action.raffles)
 
         case actionTypes.EVENT.NEW.FAILURE:
+        case actionTypes.EVENT.SHOW.FAILURE:
+        case actionTypes.EVENT.DETAIL.FAILURE:
+        case actionTypes.EVENT.UPDATE.FAILURE:
             return state
                 .set('isLoading', false)
-                .set('events', action.error)
+                .set('error', action.error)
 
         default:
             return state
@@ -54,6 +80,33 @@ export const actionCreators = {
     },
     newEventFailure: (error) => {
         return { type: actionTypes.EVENT.NEW.FAILURE, error }
+    },
+    showEventRequest: (eventId) => {
+        return { type: actionTypes.EVENT.SHOW.REQUEST, eventId }
+    },
+    getDetailInfoRequest: (eventId) => {
+        return { type: actionTypes.EVENT.DETAIL.REQUEST, eventId }
+    },
+    getDetailInfoSuccess: (event) => {
+        return { type: actionTypes.EVENT.DETAIL.SUCCESS, event }
+    },
+    getDetailInfoFailure: (eventId) => {
+        return { type: actionTypes.EVENT.DETAIL.FAILURE, eventId }
+    },
+    showEventSuccess: () => {
+        return { type: actionTypes.EVENT.SHOW.SUCCESS}
+    },
+    showEventFailure: (error) => {
+        return { type: actionTypes.EVENT.SHOW.FAILURE, error }
+    },
+    updateEventRequest: (event) => {
+        return { type: actionTypes.EVENT.UPDATE.REQUEST, event }
+    },
+    updateEventSuccess: () => {
+        return { type: actionTypes.EVENT.UPDATE.SUCCESS}
+    },
+    updateEventFailure: (error) => {
+        return { type: actionTypes.EVENT.UPDATE.FAILURE, error }
     }
 }
 

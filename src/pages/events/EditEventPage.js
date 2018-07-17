@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux'
 import { Page, Content } from '../../components/page'
 import { Button, Text } from '../../components/input'
 import { actionCreators as eventActionCreators } from '../../reducers/event'
+import { withRouter } from 'react-router-dom'
 
 import './EditEventPage.css'
 
@@ -30,6 +31,9 @@ const rows = [
  */
 class EditEventPage extends React.Component {
 
+    componentDidMount () {
+        this.props.getDetailInfoRequest(this.props.match.params.id)
+    }
     /**
      * Renders new event form
      *
@@ -41,8 +45,12 @@ class EditEventPage extends React.Component {
                 <Page title='Edit Event'>
                     <Content className="needs-validation">
                         <Form rules={VALIDATION_RULES}>
-                            <Text name="name" label="Name"/>
-                            <Text name="description" label="Description" />
+                            <Text name="name"
+                                  label="Name"
+                                  text={this.props.event.get('name')} />
+                            <Text name="description"
+                                  label="Description"
+                                  text={this.props.event.get('description')} />
                             <label htmlFor="raffles">Raffles</label>
                             <Table
                                 onClick={(row) => console.log(row)}
@@ -75,11 +83,14 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
     return {
-        event: state
+        event: state.event.getIn(['event'])
     }
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(EditEventPage)
+export default (
+    withRouter(
+        connect(mapStateToProps, mapDispatchToProps)(
+            EditEventPage
+        )
+    )
+)

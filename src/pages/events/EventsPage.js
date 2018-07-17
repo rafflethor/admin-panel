@@ -5,6 +5,7 @@ import { Table, Column } from '../../components/table'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators, selectors } from '../../reducers/events'
+import { actionCreators as detailActionCreators } from '../../reducers/event'
 
 import './EventsPage.css'
 
@@ -30,7 +31,7 @@ class EventsPage extends React.Component {
                     </Actions>
                     <Content>
                         <Table
-                            onClick={(row) => console.log(row)}
+                            onClick={(row) => this.props.showEventRequest(row.get('id')) }
                             rows={this.props.events} >
                             <Column value="id" head="ID" />
                             <Column value="name" head="Name" />
@@ -44,7 +45,10 @@ class EventsPage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    ...bindActionCreators(actionCreators, dispatch)
+    ...bindActionCreators(
+        {...actionCreators, ...detailActionCreators},
+        dispatch
+    )
 })
 
 const mapStateToProps = (state) => {

@@ -25,7 +25,7 @@ class App extends Component {
               <Route exact path='/' component={DashboardPage} />
               <Route exact path='/events' component={EventsPage} />
               <Route path='/events/new' component={NewEventPage} />
-              <Route path='/events/edit' component={EditEventPage} />
+              <Route path='/events/:id' component={EditEventPage} />
               <Route path='/raffles' component={RafflesPage} />
               <Route path='/users' component={UsersPage} />
               <Route path='/bartolos' component={BartolosPage} />
