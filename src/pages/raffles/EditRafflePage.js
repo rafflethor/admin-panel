@@ -2,12 +2,11 @@ import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
 import { Form } from 'react-validify'
 import { Page, Content } from '../../components/page'
-import { Button, Text } from '../../components/input'
+import { Button, Text, Select } from '../../components/input'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators as rafflesActionCreators } from '../../reducers/raffles'
 import { withRouter } from 'react-router-dom'
-
 import './EditRafflePage.css'
 
 const VALIDATION_RULES = {
@@ -16,14 +15,28 @@ const VALIDATION_RULES = {
     noWinners: 'required|integer'
 }
 
+const RAFFLE_TYPES = [
+    { value: 'TWITTER', label: 'TWITTER' },
+    { value: 'LIVE', label: 'LIVE' }
+]
+
 /**
  *
  * @since 0.1.0
  */
 class EditRafflePage extends React.Component {
 
+    constructor (props) {
+        super(props)
+        this.state = {type: ''}
+    }
+
     componentDidMount () {
-        //console.log('==>',this.props.match.params.eventId)
+
+    }
+
+    handleChange (ev) {
+        this.setState({type: ev.target.value})
     }
 
     render () {
@@ -38,9 +51,10 @@ class EditRafflePage extends React.Component {
                                   enabled={false}
                                   label="Event"
                                   text={eventId} />
-                            <Text name="type"
-                                    label="Type ( TWITTER | LIVE )"
-                                    text={this.props.type} />
+                            <Select name="type"
+                                    value={this.state.type}
+                                    options={RAFFLE_TYPES}
+                                    onChange={(ev) => this.handleChange(ev) } />
                             <Text name="name"
                                   label="Name"
                                   text={this.props.name} />
