@@ -62,7 +62,6 @@ class EditEventPage extends React.Component {
                             value="Save Event"
                             onClick={(values) => this.props.newEventRequest(values)} />
                         <Button
-                            submit
                             className={isAddRaffleEnabled ? 'ml-2' : 'disabled ml-2'}
                             enabled={isAddRaffleEnabled}
                             type="button"

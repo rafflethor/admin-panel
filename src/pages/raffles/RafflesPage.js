@@ -1,6 +1,6 @@
 import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
-import { Page, Content, Actions } from '../../components/page'
+import { Page, Content } from '../../components/page'
 import { Table, Column } from '../../components/table'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -22,12 +22,6 @@ class RafflesPage extends React.Component {
         return (
             <MainLayout>
                 <Page title='Raffles'>
-                    <Actions>
-                        <button
-                            type="button"
-                            className="btn btn-primary"
-                            onClick={ () => console.log('add new raffle') }>Add New Raffle</button>
-                    </Actions>
                     <Content>
                         <div className="row">
                             <Table

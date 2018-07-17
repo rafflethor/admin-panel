@@ -1,0 +1,11 @@
+select {
+    background-color: var(--white);
+    border: 1px solid var(--gray-light);
+    border-radius: 3px;
+    font-size: 1rem;
+    height: 45px;
+    outline: none;
+    padding: .8rem;
+    transition: all .3s ease;
+    width: 100%;
+}

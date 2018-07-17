@@ -7,6 +7,7 @@ import EventsPage from './pages/events/EventsPage'
 import NewEventPage from './pages/events/NewEventPage'
 import EditEventPage from './pages/events/EditEventPage'
 import RafflesPage from './pages/raffles/RafflesPage'
+import EditRafflePage from './pages/raffles/EditRafflePage'
 import UsersPage from './pages/users/UsersPage'
 import BartolosPage from './pages/bartolos/BartolosPage'
 import DashboardPage from './pages/dashboard/DashboardPage'
@@ -25,8 +26,9 @@ class App extends Component {
               <Route exact path='/' component={DashboardPage} />
               <Route exact path='/events' component={EventsPage} />
               <Route path='/events/new' component={NewEventPage} />
-              <Route path='/events/:id' component={EditEventPage} />
-              <Route path='/raffles' component={RafflesPage} />
+              <Route exact path='/events/:id' component={EditEventPage} />
+              <Route path='/events/:eventId/raffles/new' component={EditRafflePage} />
+              <Route exact path='/raffles' component={RafflesPage} />
               <Route path='/users' component={UsersPage} />
               <Route path='/bartolos' component={BartolosPage} />
               <Route path='/login' component={LoginPage} />
