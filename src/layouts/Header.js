@@ -1,8 +1,9 @@
 import React from 'react'
 
-import logo from './images/logo.png'
+import logo from '../assets/logo.svg'
 import defaultAvatar from './images/avatar/6.jpg'
-import logoText from './images/logo-text.png'
+import logoText from '../assets/logo-text.svg'
+import './Header.css'
 
 export class Header extends React.Component {
 
@@ -22,8 +23,8 @@ export class Header extends React.Component {
                 <nav className="navbar top-navbar navbar-expand-md navbar-light">
                     <div className="navbar-header">
                         <a className="navbar-brand" href="index.html">
-                            <b><img src={logo} alt="homepage" className="dark-logo" /></b>
-                            <span style={logoTextStyle}><img src={logoText} alt="homepage" className="dark-logo" /></span>
+                            <b><img src={logo} alt="homepage" className="dark-logo"/></b>
+                            <span style={logoTextStyle}><img src={logoText} alt="homepage" className="dark-logo-text" /></span>
                         </a>
                     </div>
                     <div className="navbar-collapse">
