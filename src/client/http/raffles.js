@@ -26,5 +26,30 @@ export default (client) => ({
                 return resp.data.getIn(['data', 'listAllRaffles'])
             })
             .catch(parseError)
+    },
+    detail (id) {
+        const query = `
+         query GetRaffle($id: String!) {
+            raffle(id: $id) {
+                id
+                name
+                type
+                noWinners
+            }
+         }
+        `
+
+        const data = {
+            query,
+            variables: {
+                id: id
+            }
+        }
+
+        return client
+            .post('', data)
+            .then(resp => {
+                return resp.data.getIn(['data', 'raffle'])
+            }).catch(parseError)
     }
 })

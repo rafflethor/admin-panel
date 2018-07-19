@@ -25,7 +25,7 @@ class RafflesPage extends React.Component {
                     <Content>
                         <div className="row">
                             <Table
-                                onClick={(row) => console.log('raffle: ', row)}
+                                onClick={(row) => this.props.showRaffleRequest(row.get('id')) }
                                 rows={this.props.raffles}>
                                 <Column value="id" head="ID"/>
                                 <Column value="name" head="Name"/>
