@@ -53,7 +53,7 @@ class EditRafflePage extends React.Component {
                             type="button"
                             className="btn-warning"
                             value="Start Raffle"
-                            onClick={(values) => console.log('raffle: ', {...values})} />
+                            onClick={(v) => this.props.startRaffleRequest(this.props.raffle.id)} />
                         </Form>
                     </Content>
                 </Page>

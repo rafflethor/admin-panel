@@ -15,6 +15,11 @@ export const actionTypes = {
             REQUEST: '@rafflethor/RAFFLES/DETAIL/REQUEST',
             SUCCESS: '@rafflethor/RAFFLES/DETAIL/SUCCESS',
             FAILURE: '@rafflethor/RAFFLES/DETAIL/FAILURE'
+        },
+        START: {
+            REQUEST: '@rafflethor/RAFFLES/START/REQUEST',
+            SUCCESS: '@rafflethor/RAFFLES/START/SUCCESS',
+            FAILURE: '@rafflethor/RAFFLES/START/FAILURE'
         }
     }
 }
@@ -82,6 +87,15 @@ export const actionCreators = {
     },
     getRaffleDetailsFailure: (error) => {
         return { type: actionTypes.RAFFLES.DETAIL.FAILURE, error }
+    },
+    startRaffleRequest: (id) => {
+        return { type: actionTypes.RAFFLES.START.REQUEST, id }
+    },
+    startRaffleSuccess: (id) => {
+        return { type: actionTypes.RAFFLES.START.SUCCESS, id }
+    },
+    startRaffleFailure: (error) => {
+        return { type: actionTypes.RAFFLES.START.FAILURE, error }
     }
 }
 

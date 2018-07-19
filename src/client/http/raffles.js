@@ -51,5 +51,29 @@ export default (client) => ({
             .then(resp => {
                 return resp.data.getIn(['data', 'raffle'])
             }).catch(parseError)
+    },
+    start (id) {
+        const query = `
+           mutation StartRaffle($id:String!) {
+             startRaffle(id: $id) {
+               id
+               name
+               type
+             }
+           }
+        `
+
+        const data = {
+            query,
+            variables: {
+                id: id
+            }
+        }
+
+        return client
+            .post('', data)
+            .then(resp => {
+                return resp.data.getIn(['data', 'startRaffle'])
+            }).catch(parseError)
     }
 })

@@ -18,6 +18,25 @@ export function* getRaffleDetails() {
     }
 }
 
+export function* startRaffle() {
+    while(true) {
+        try {
+            const { id } = yield take(actionTypes.RAFFLES.START.REQUEST)
+
+            if (id) {
+
+                yield call(http.raffles.start, id)
+                yield put(actionCreators.startRaffleSuccess())
+
+            }
+        } catch (e) {
+            yield put(actionCreators.startRaffleFailure(e))
+        }
+    }
+
+}
+
 export default [
-    fork(getRaffleDetails)
+    fork(getRaffleDetails),
+    fork(startRaffle)
 ]
