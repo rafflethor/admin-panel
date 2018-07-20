@@ -5,7 +5,7 @@ import { Page, Content } from '../../components/page'
 import { Button, Text } from '../../components/input'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { selectors, actionCreators as rafflesActionCreators } from '../../reducers/raffles'
+import { actionCreators as rafflesActionCreators } from '../../reducers/raffles'
 import { withRouter } from 'react-router-dom'
 import './EditRafflePage.css'
 

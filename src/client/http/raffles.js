@@ -87,5 +87,45 @@ export default (client) => ({
             .then(resp => {
                 return resp.data.getIn(['data', 'startRaffle'])
             }).catch(parseError)
+    },
+    save (raffle) {
+        const query = `
+          mutation CreateRaffle($input: SaveRaffleInput!) {
+              saveRaffle(input: $input) {
+                id
+                name
+                ... on TwitterRaffle {
+                  organization {
+                    id
+                    name
+                  }
+                }
+                ... on RandomListRaffle {
+                  organization {
+                    id
+                    name
+                  }
+                }
+              }
+          }
+        `
+
+        const data = {
+            query,
+            variables: {
+                input: {
+                    name: raffle.name,
+                    organizationId: raffle.organizationId,
+                    type: raffle.type,
+                    noWinners: raffle.noWinners
+                }
+            }
+        }
+
+        return client
+            .post('', data)
+            .then(resp => {
+                return resp.data.getIn(['data', 'saveRaffle'])
+            }).catch(parseError)
     }
 })

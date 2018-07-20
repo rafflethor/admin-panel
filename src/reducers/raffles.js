@@ -21,6 +21,10 @@ export const actionTypes = {
             REQUEST: '@rafflethor/RAFFLES/START/REQUEST',
             SUCCESS: '@rafflethor/RAFFLES/START/SUCCESS',
             FAILURE: '@rafflethor/RAFFLES/START/FAILURE'
+        },
+        SAVE: {
+            REQUEST: '@rafflethor/RAFFLES/SAVE/REQUEST',
+            FAILURE: '@rafflethor/RAFFLES/SAVE/FAILURE'
         }
     }
 }
@@ -48,6 +52,7 @@ const rafflesReducer = (state = initialState, action) => {
                 .set('isLoading', false)
                 .set('raffles', action.raffles)
 
+        case actionTypes.RAFFLES.SAVE.FAILURE:
         case actionTypes.RAFFLES.DETAIL.FAILURE:
         case actionTypes.RAFFLES.LIST.FAILURE:
             return state
@@ -65,8 +70,8 @@ const rafflesReducer = (state = initialState, action) => {
 }
 
 export const actionCreators = {
-    newRaffleForm: () => {
-        return push('/raffles/new')
+    newRaffleForm: (eventId) => {
+        return push(`/raffles/new/${eventId}`)
     },
     listRaffles: () => {
         return { type: actionTypes.RAFFLES.LIST.REQUEST }
@@ -100,6 +105,15 @@ export const actionCreators = {
     },
     showEventInfoRequest: (eventId) => {
         return eventActionCreators.showEventRequest(eventId)
+    },
+    saveRaffleRequest: (raffle) => {
+        return { type: actionTypes.RAFFLES.SAVE.REQUEST, raffle }
+    },
+    saveRaffleSuccess: (eventId) => {
+        return push(`/events/${eventId}`)
+    },
+    saveRaffleFailure: (error) => {
+        return { type: actionTypes.RAFFLES.SAVE.FAILURE, error }
     }
 }
 

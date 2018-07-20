@@ -1,4 +1,4 @@
-import { put, call, takeLatest } from 'redux-saga/effects'
+import { put, call, take, fork, takeLatest } from 'redux-saga/effects'
 import { actionCreators, actionTypes } from '../reducers/raffles'
 import http from '../client/http'
 
@@ -17,6 +17,25 @@ export function* raffles() {
     }
 }
 
+export function* watchSaveRaffle() {
+    while (true) {
+        try {
+            const { raffle } = yield take(actionTypes.RAFFLES.SAVE.REQUEST)
+
+            if (raffle) {
+                const saved = yield call(http.raffles.save, raffle)
+                const event = saved.getIn(['organization', 'id'])
+
+                yield put(actionCreators.saveRaffleSuccess(event))
+            }
+        } catch (e) {
+            yield put(actionCreators.saveRaffleFailure(e))
+        }
+    }
+
+}
+
 export default [
-    takeLatest(actionTypes.RAFFLES.LIST.REQUEST, raffles)
+    takeLatest(actionTypes.RAFFLES.LIST.REQUEST, raffles),
+    fork(watchSaveRaffle)
 ]

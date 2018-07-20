@@ -79,9 +79,6 @@ export const actionCreators = {
     newEventFailure: (error) => {
         return { type: actionTypes.EVENT.NEW.FAILURE, error }
     },
-    showEventRequest: (eventId) => {
-        return { type: actionTypes.EVENT.SHOW.REQUEST, eventId }
-    },
     getDetailInfoRequest: (eventId) => {
         return { type: actionTypes.EVENT.DETAIL.REQUEST, eventId }
     },
@@ -90,6 +87,9 @@ export const actionCreators = {
     },
     getDetailInfoFailure: (eventId) => {
         return { type: actionTypes.EVENT.DETAIL.FAILURE, eventId }
+    },
+    showEventRequest: (eventId) => {
+        return { type: actionTypes.EVENT.SHOW.REQUEST, eventId }
     },
     showEventSuccess: () => {
         return { type: actionTypes.EVENT.SHOW.SUCCESS}

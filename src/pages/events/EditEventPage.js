@@ -34,7 +34,8 @@ class EditEventPage extends React.Component {
      * @since 0.1.0
      */
     render () {
-        const isAddRaffleEnabled = this.props.match.params.id ? true : false
+        const eventId = this.props.match.params.id
+        const isAddRaffleEnabled = eventId ? true : false
 
         return (
             <MainLayout>
@@ -67,7 +68,7 @@ class EditEventPage extends React.Component {
                                 enabled={isAddRaffleEnabled}
                                 type="button"
                                 value="Add New Raffle"
-                                onClick={(event) => console.log('add new raffle: ', event)} />
+                                onClick={() => this.props.newRaffleForm(eventId)} />
                     </Content>
                 </Page>
             </MainLayout>

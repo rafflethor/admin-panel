@@ -31,7 +31,7 @@ class App extends Component {
               <Route exact path='/events/:id' component={EditEventPage} />
 
               <Route exact path='/raffles' component={RafflesPage} />
-              <Route path='/raffles/newin/:eventId' component={NewRafflePage} />
+              <Route path='/raffles/new/:eventId' component={NewRafflePage} />
               <Route exact path='/raffles/:id' component={EditRafflePage} />
 
               <Route path='/users' component={UsersPage} />

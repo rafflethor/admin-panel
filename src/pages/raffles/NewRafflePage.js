@@ -6,6 +6,7 @@ import { Button, Text, Select } from '../../components/input'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators as rafflesActionCreators } from '../../reducers/raffles'
+import { actionCreators as eventActionCreators } from '../../reducers/event'
 import { withRouter } from 'react-router-dom'
 import './NewRafflePage.css'
 
@@ -31,22 +32,31 @@ class NewRafflePage extends React.Component {
         this.state = {type: ''}
     }
 
+    getEventId () {
+        return this.props.match.params.eventId
+    }
+
+    componentDidMount () {
+        this.props.getDetailInfoRequest(this.getEventId())
+    }
+
     handleChange (ev) {
         this.setState({type: ev.target.value})
     }
 
     render () {
-        const eventId = this.props.match.params.eventId
-
         return (
             <MainLayout>
                 <Page title='Edit Raffle'>
                     <Content className="needs-validation">
                         <Form rules={VALIDATION_RULES}>
-                            <Text name="event"
-                                  enabled={false}
-                                  label="Event"
-                                  text={eventId} />
+                            <label htmlFor="event">Event</label>
+                            <div className="input-group mb-3">
+                                <a className="reference"
+                                   onClick={() => this.props.showEventInfoRequest(this.getEventId()) }>
+                                    {this.props.eventName}
+                                </a>
+                            </div>
                             <Select name="type"
                                     value={this.state.type}
                                     options={RAFFLE_TYPES}
@@ -61,7 +71,7 @@ class NewRafflePage extends React.Component {
                             submit
                             type="button"
                             value="Save Raffle"
-                            onClick={(values) => console.log('raffle: ', {...values, eventId})} />
+                            onClick={(vals) => this.props.saveRaffleRequest({...vals, organizationId: this.getEventId()})} />
                         </Form>
                     </Content>
                 </Page>
@@ -71,11 +81,16 @@ class NewRafflePage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    ...bindActionCreators(rafflesActionCreators, dispatch)
+    ...bindActionCreators(
+        {...rafflesActionCreators, ...eventActionCreators},
+        dispatch
+    )
 })
 
 const mapStateToProps = (state) => {
-    return state
+    return {
+        eventName: state.event.getIn(['event', 'name'])
+    }
 }
 
 export default withRouter(
