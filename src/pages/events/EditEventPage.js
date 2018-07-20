@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux'
 import { Page, Content } from '../../components/page'
 import { Button, Text } from '../../components/input'
 import { actionCreators as eventActionCreators } from '../../reducers/event'
+import { actionCreators as rafflesActionCreators } from '../../reducers/raffles'
 import { withRouter } from 'react-router-dom'
 
 import './EditEventPage.css'
@@ -48,7 +49,7 @@ class EditEventPage extends React.Component {
                                   text={this.props.description} />
                             <label htmlFor="raffles">Raffles</label>
                             <Table
-                                onClick={(row) => console.log(row)}
+                                onClick={(row) => this.props.showRaffleRequest(row.get('id'))}
                                 rows={this.props.raffles} >
                                 <Column value="id" head="ID" />
                                 <Column value="name" head="Name" />
@@ -61,12 +62,12 @@ class EditEventPage extends React.Component {
                             type="button"
                             value="Save Event"
                             onClick={(values) => this.props.newEventRequest(values)} />
-                        <Button
-                            className={isAddRaffleEnabled ? 'ml-2' : 'disabled ml-2'}
-                            enabled={isAddRaffleEnabled}
-                            type="button"
-                            value="Add New Raffle"
-                            onClick={(event) => console.log('add new raffle: ', event)} />
+                            <Button
+                                className={isAddRaffleEnabled ? 'ml-2' : 'disabled ml-2'}
+                                enabled={isAddRaffleEnabled}
+                                type="button"
+                                value="Add New Raffle"
+                                onClick={(event) => console.log('add new raffle: ', event)} />
                     </Content>
                 </Page>
             </MainLayout>
@@ -80,7 +81,10 @@ class EditEventPage extends React.Component {
  * @since 0.1.0
  */
 const mapDispatchToProps = (dispatch) => ({
-    ...bindActionCreators(eventActionCreators, dispatch)
+    ...bindActionCreators(
+        {...eventActionCreators, ...rafflesActionCreators},
+        dispatch
+    )
 })
 
 const mapStateToProps = (state) => {

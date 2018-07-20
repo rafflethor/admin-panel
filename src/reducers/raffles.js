@@ -1,5 +1,6 @@
 import { List, Map } from 'immutable'
 import { push } from 'react-router-redux'
+import { actionCreators as eventActionCreators } from './event'
 
 /**
  * Possible types of action
@@ -96,6 +97,9 @@ export const actionCreators = {
     },
     startRaffleFailure: (error) => {
         return { type: actionTypes.RAFFLES.START.FAILURE, error }
+    },
+    showEventInfoRequest: (eventId) => {
+        return eventActionCreators.showEventRequest(eventId)
     }
 }
 

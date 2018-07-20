@@ -6,6 +6,8 @@ export const Text = ({ error, enabled = true, ...props }) => {
           (<div className="invalid-feedback">{ error }</div>) :
           (<div/>)
 
+    const definedClassName = props.className || ''
+
     const fieldClassName = error ?
           "is-invalid" :
           "is-valid"
@@ -15,9 +17,10 @@ export const Text = ({ error, enabled = true, ...props }) => {
             <label htmlFor="basic-url">{props.label}</label>
             <div className="input-group mb-3">
                 <input
+                    {...props}
                     type="text"
                     disabled={!enabled}
-                    className={ `form-control ${fieldClassName}` }
+                    className={ `form-control ${fieldClassName} ${definedClassName}` }
                     onChange={props.onChange}
                     value={props.text}
                     name={props.name}

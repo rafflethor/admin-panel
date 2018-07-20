@@ -35,6 +35,18 @@ export default (client) => ({
                 name
                 type
                 noWinners
+                ... on TwitterRaffle {
+                  organization {
+                    id
+                    name
+                  }
+                }
+                ... on RandomListRaffle {
+                  organization {
+                    id
+                    name
+                  }
+                }
             }
          }
         `

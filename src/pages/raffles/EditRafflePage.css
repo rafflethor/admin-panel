@@ -1,0 +1,10 @@
+div.input-group > a.reference {
+    color: #5c4ac7;
+    text-decoration: underline !important;
+}
+
+div.input-group > a.reference:hover {
+    color: #5c4ac7;
+    text-decoration: underline !important;
+    cursor: pointer;
+}

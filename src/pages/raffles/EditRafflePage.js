@@ -31,17 +31,19 @@ class EditRafflePage extends React.Component {
                 <Page title='Edit Raffle'>
                     <Content className="needs-validation">
                         <Form rules={VALIDATION_RULES}>
-                            <Text name="event"
-                                  enabled={false}
-                                  label="Event"
-                                  text={this.props.raffle.id} />
-
+                            <label htmlFor="event">Event</label>
+                            <div className="input-group mb-3">
+                                <a className="reference"
+                                   onClick={() => this.props.showEventInfoRequest(this.props.organizationId) }>
+                                    {this.props.organizationName}
+                                </a>
+                            </div>
                             <Text name="name"
                                   label="Name"
-                                  text={this.props.raffle.name} />
+                                  text={this.props.raffleName} />
                             <Text name="noWinners"
                                   label="No Winners"
-                                  text={this.props.raffle.noWinners} />
+                                  text={this.props.noWinners} />
                         <Button
                             submit
                             className="mr-3"
@@ -53,7 +55,7 @@ class EditRafflePage extends React.Component {
                             type="button"
                             className="btn-warning"
                             value="Start Raffle"
-                            onClick={(v) => this.props.startRaffleRequest(this.props.raffle.id)} />
+                            onClick={(v) => this.props.startRaffleRequest(this.props.raffleId)} />
                         </Form>
                     </Content>
                 </Page>
@@ -68,7 +70,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
     return {
-        raffle: selectors.getRaffleDetail(state).toJS()
+        raffleId: state.raffles.getIn(['raffle', 'id']),
+        raffleName: state.raffles.getIn(['raffle', 'name']),
+        noWinners: state.raffles.getIn(['raffle', 'noWinners']),
+        organizationId: state.raffles.getIn(['raffle', 'organization', 'id']),
+        organizationName: state.raffles.getIn(['raffle', 'organization', 'name'])
     }
 }
 
