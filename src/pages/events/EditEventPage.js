@@ -1,11 +1,10 @@
 import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
 import { Table, Column } from '../../components/table'
-import { Form } from 'react-validify'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Page, Content } from '../../components/page'
-import { Button, Text } from '../../components/input'
+import { Button, Input, Form } from '../../components/input'
 import { actionCreators as eventActionCreators } from '../../reducers/event'
 import { actionCreators as rafflesActionCreators } from '../../reducers/raffles'
 import { withRouter } from 'react-router-dom'
@@ -41,13 +40,10 @@ class EditEventPage extends React.Component {
             <MainLayout>
                 <Page title='Edit Event'>
                     <Content className="needs-validation">
-                        <Form rules={VALIDATION_RULES}>
-                            <Text name="name"
-                                  label="Name"
-                                  text={this.props.name} />
-                            <Text name="description"
-                                  label="Description"
-                                  text={this.props.description} />
+                        <Form rules={VALIDATION_RULES}
+                              values={this.props.eventForm} >
+                            <Input name="name" label="Name"/>
+                            <Input name="description" label="Description"/>
                             <label htmlFor="raffles">Raffles</label>
                             <Table
                                 onClick={(row) => this.props.showRaffleRequest(row.get('id'))}
@@ -90,8 +86,10 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
     return {
-        name: state.event.getIn(['event', 'name']),
-        description: state.event.getIn(['event', 'description']),
+        eventForm: {
+            name: state.event.getIn(['event', 'name']),
+            description: state.event.getIn(['event', 'description']),
+        },
         raffles: state.event.getIn(['event', 'raffles'])
     }
 }

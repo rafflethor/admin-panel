@@ -1,8 +1,7 @@
 import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
-import { Form } from 'react-validify'
 import { Page, Content } from '../../components/page'
-import { Button, Text } from '../../components/input'
+import { Button, Input, Form } from '../../components/input'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators as rafflesActionCreators } from '../../reducers/raffles'
@@ -30,7 +29,7 @@ class EditRafflePage extends React.Component {
             <MainLayout>
                 <Page title='Edit Raffle'>
                     <Content className="needs-validation">
-                        <Form rules={VALIDATION_RULES}>
+                        <Form rules={VALIDATION_RULES} values={this.props.formValues}>
                             <label htmlFor="event">Event</label>
                             <div className="input-group mb-3">
                                 <a className="reference"
@@ -38,12 +37,8 @@ class EditRafflePage extends React.Component {
                                     {this.props.organizationName}
                                 </a>
                             </div>
-                            <Text name="name"
-                                  label="Name"
-                                  text={this.props.raffleName} />
-                            <Text name="noWinners"
-                                  label="No Winners"
-                                  text={this.props.noWinners} />
+                            <Input name="name" label="Name" />
+                            <Input name="noWinners" label="No Winners" />
                         <Button
                             submit
                             className="mr-3"
@@ -70,9 +65,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
     return {
+        formValues: {
+            name: state.raffles.getIn(['raffle', 'name']),
+            noWinners: state.raffles.getIn(['raffle', 'noWinners']),
+        },
         raffleId: state.raffles.getIn(['raffle', 'id']),
-        raffleName: state.raffles.getIn(['raffle', 'name']),
-        noWinners: state.raffles.getIn(['raffle', 'noWinners']),
         organizationId: state.raffles.getIn(['raffle', 'organization', 'id']),
         organizationName: state.raffles.getIn(['raffle', 'organization', 'name'])
     }

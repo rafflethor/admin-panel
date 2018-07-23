@@ -21,7 +21,7 @@ export class Table extends React.Component {
             <tr key={row.get('id')} onClick={() => fn(row) } className={this.props.rowClassName}>
                 { columns.map((column, index) => this.renderRow(row, column, index)) }
             </tr>
-        )) : (<tr><td className="text-center" colspan={columns.length}>No data found</td></tr>)
+        )) : (<tr><td className="text-center" colSpan={columns.length}>No data found</td></tr>)
     }
 
     render () {
