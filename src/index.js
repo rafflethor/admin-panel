@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { ConnectedRouter, routerMiddleware as createRouterMiddleware } from 'react-router-redux'
-import { createStore, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
 import registerServiceWorker from './registerServiceWorker'
 import createSagaMiddleware from 'redux-saga'
 import createHistory from 'history/createBrowserHistory'
+import { ConnectedRouter, routerMiddleware as createRouterMiddleware } from 'react-router-redux'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import { createLogger } from 'redux-logger'
 
 import './index.css'
 import App from './App'
@@ -24,11 +25,19 @@ const history = createHistory()
 const routerMiddleware = createRouterMiddleware(history)
 
 /**
+ * Create logger
+ */
+const logger = createLogger({
+    collapsed: true
+})
+
+
+/**
  * Create store
  */
 const store = createStore(
-  rootReducer,
-  applyMiddleware(sagaMiddleware, routerMiddleware)
+    rootReducer,
+    applyMiddleware(sagaMiddleware, routerMiddleware, logger)
 )
 
 /**

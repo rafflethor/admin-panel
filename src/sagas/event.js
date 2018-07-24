@@ -1,5 +1,9 @@
-import { put, call, take, fork } from 'redux-saga/effects'
+import { put, call, race, take, fork } from 'redux-saga/effects'
 import { actionCreators, actionTypes } from '../reducers/event'
+import {
+    actionTypes as modalActionTypes,
+    actionCreators as modalActionCreators
+} from '../reducers/modal'
 import { push } from 'react-router-redux'
 import http from '../client/http'
 
@@ -55,8 +59,34 @@ export function* getEventDetailRequest() {
     }
 }
 
+export function * watchDeleteEvent () {
+    while (true) {
+        try {
+            const { openModalId } = yield take(actionTypes.EVENT.DELETE.MODAL)
+            yield put({ type: modalActionTypes.MODAL.OPEN, openModalId })
+
+            const { data } = yield race({
+                data: take(actionTypes.EVENT.DELETE.REQUEST),
+                cancel: take(modalActionTypes.MODAL.CLOSE)
+            })
+
+            if (data) {
+                const eventId = data.eventId
+
+                yield call(http.event.delete, eventId)
+                yield put(actionCreators.deleteEventSuccess())
+                yield put(modalActionCreators.closeModal())
+            }
+
+        } catch (error) {
+            yield put(actionCreators.deleteEventFailure(error))
+        }
+    }
+}
+
 export default [
     fork(saveEventRequest),
     fork(showEventRequest),
-    fork(getEventDetailRequest)
+    fork(getEventDetailRequest),
+    fork(watchDeleteEvent)
 ]

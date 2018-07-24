@@ -5,6 +5,7 @@ import dashboardReducers from './dashboard'
 import eventsReducers from './events'
 import eventReducers from './event'
 import rafflesReducers from './raffles'
+import modalReducers from './modal'
 
 export default combineReducers({
     security: securityReducers,
@@ -12,5 +13,6 @@ export default combineReducers({
     dashboard: dashboardReducers,
     events: eventsReducers,
     event: eventReducers,
-    raffles: rafflesReducers
+    raffles: rafflesReducers,
+    modal: modalReducers
 })
