@@ -149,5 +149,45 @@ export default (client) => ({
             .then(resp => {
                 return resp.data.getIn(['data', 'deleteRaffle'])
             }).catch(parseError)
-    }
+    },
+    update (raffle) {
+        const query = `
+          mutation UpdateRaffle($input: SaveRaffleInput!) {
+              updateRaffle(input: $input) {
+                id
+                name
+                ... on TwitterRaffle {
+                  organization {
+                    id
+                    name
+                  }
+                }
+                ... on RandomListRaffle {
+                  organization {
+                    id
+                    name
+                  }
+                }
+              }
+          }
+        `
+
+        const data = {
+            query,
+            variables: {
+                input: {
+                    id: raffle.id,
+                    name: raffle.name,
+                    type: raffle.type,
+                    noWinners: raffle.noWinners
+                }
+            }
+        }
+
+        return client
+            .post('', data)
+            .then(resp => {
+                return resp.data.getIn(['data', 'updateRaffle'])
+            }).catch(parseError)
+    },
 })

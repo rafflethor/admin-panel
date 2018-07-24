@@ -31,6 +31,11 @@ export const actionTypes = {
             REQUEST: '@rafflethor/RAFFLES/DELETE/REQUEST',
             SUCCESS: '@rafflethor/RAFFLES/DELETE/SUCCESS',
             FAILURE: '@rafflethor/RAFFLES/DELETE/FAILURE'
+        },
+        UPDATE: {
+            REQUEST: '@rafflethor/RAFFLES/UPDATE/REQUEST',
+            SUCCESS: '@rafflethor/RAFFLES/UPDATE/SUCCESS',
+            FAILURE: '@rafflethor/RAFFLES/UPDATE/FAILURE'
         }
     }
 }
@@ -120,6 +125,15 @@ export const actionCreators = {
     },
     saveRaffleFailure: (error) => {
         return { type: actionTypes.RAFFLES.SAVE.FAILURE, error }
+    },
+    updateRaffleRequest: (raffle, eventId) => {
+        return { type: actionTypes.RAFFLES.UPDATE.REQUEST, raffle, eventId }
+    },
+    updateRaffleSuccess: (eventId) => {
+        return push(`/events/${eventId}`)
+    },
+    updateRaffleFailure: (error) => {
+        return { type: actionTypes.RAFFLES.UPDATE.FAILURE, error }
     },
     deleteRaffleModalRequest: (openModalId) => {
         return { type: actionTypes.RAFFLES.DELETE.MODAL, openModalId }

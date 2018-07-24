@@ -11,7 +11,6 @@ import './EditRafflePage.css'
 
 const VALIDATION_RULES = {
     name: 'required|min:5|max:100',
-    type: 'required|in:TWITTER,LIVE',
     noWinners: 'required|integer'
 }
 
@@ -40,12 +39,14 @@ class EditRafflePage extends React.Component {
                             </div>
                             <Input name="name" label="Name" />
                             <Input name="noWinners" label="No Winners" />
+                            <Input type="hidden" name="type" />
+                            <Input type="hidden" name="id" />
                         <Button
                             submit
                             className="mr-3"
                             type="button"
-                            value="Save Raffle"
-                            onClick={(values) => console.log('raffle: ', {...values})} />
+                            value="Update Raffle"
+                            onClick={(vals) => this.props.updateRaffleRequest(vals, this.props.organizationId)} />
                         </Form>
                         <Button
                             className="btn-danger mr-3"
@@ -79,6 +80,8 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => {
     return {
         formValues: {
+            id: state.raffles.getIn(['raffle', 'id']),
+            type: state.raffles.getIn(['raffle', 'type']),
             name: state.raffles.getIn(['raffle', 'name']),
             noWinners: state.raffles.getIn(['raffle', 'noWinners']),
         },

@@ -64,8 +64,25 @@ export function * watchDeleteRaffle () {
     }
 }
 
+export function* watchUpdateRaffle() {
+    while (true) {
+        try {
+            const { raffle, eventId } = yield take(actionTypes.RAFFLES.UPDATE.REQUEST)
+
+            if (raffle) {
+                yield call(http.raffles.update, raffle)
+                yield put(actionCreators.updateRaffleSuccess(eventId))
+            }
+        } catch (e) {
+            yield put(actionCreators.updateRaffleFailure(e))
+        }
+    }
+
+}
+
 export default [
     takeLatest(actionTypes.RAFFLES.LIST.REQUEST, raffles),
     fork(watchSaveRaffle),
-    fork(watchDeleteRaffle)
+    fork(watchDeleteRaffle),
+    fork(watchUpdateRaffle)
 ]
