@@ -1,5 +1,9 @@
-import { put, call, take, fork, takeLatest } from 'redux-saga/effects'
+import { put, call, take, fork, race, takeLatest } from 'redux-saga/effects'
 import { actionCreators, actionTypes } from '../reducers/raffles'
+import {
+    actionTypes as modalActionTypes,
+    actionCreators as modalActionCreators
+} from '../reducers/modal'
 import http from '../client/http'
 
 /**
@@ -35,7 +39,33 @@ export function* watchSaveRaffle() {
 
 }
 
+export function * watchDeleteRaffle () {
+    while (true) {
+        try {
+            const { openModalId } = yield take(actionTypes.RAFFLES.DELETE.MODAL)
+            yield put({ type: modalActionTypes.MODAL.OPEN, openModalId })
+
+            const { data } = yield race({
+                data: take(actionTypes.RAFFLES.DELETE.REQUEST),
+                cancel: take(modalActionTypes.MODAL.CLOSE)
+            })
+
+            if (data) {
+                const { raffleId, eventId } = data
+
+                yield call(http.raffles.delete, raffleId)
+                yield put(actionCreators.deleteRaffleSuccess(eventId))
+                yield put(modalActionCreators.closeModal())
+            }
+
+        } catch (error) {
+            yield put(actionCreators.deleteRaffleFailure(error))
+        }
+    }
+}
+
 export default [
     takeLatest(actionTypes.RAFFLES.LIST.REQUEST, raffles),
-    fork(watchSaveRaffle)
+    fork(watchSaveRaffle),
+    fork(watchDeleteRaffle)
 ]

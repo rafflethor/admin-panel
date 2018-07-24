@@ -2,6 +2,7 @@ import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
 import { Page, Content } from '../../components/page'
 import { Button, Input, Form } from '../../components/input'
+import { ConfirmationDialog } from '../../components/modal'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators as rafflesActionCreators } from '../../reducers/raffles'
@@ -45,13 +46,25 @@ class EditRafflePage extends React.Component {
                             type="button"
                             value="Save Raffle"
                             onClick={(values) => console.log('raffle: ', {...values})} />
-
+                        </Form>
+                        <Button
+                            className="btn-danger mr-3"
+                            type="button"
+                            value="Delete Event"
+                            onClick={() => this.props.deleteRaffleModalRequest('deleteEvent')} />
                         <Button
                             type="button"
                             className="btn-warning"
                             value="Start Raffle"
                             onClick={(v) => this.props.startRaffleRequest(this.props.raffleId)} />
-                        </Form>
+                        <ConfirmationDialog
+                            title={`Delete Raffle: ${this.props.formValues.name}`}
+                            message="Are you sure you want to delete this raffle ?"
+                            cancelMessage="Cancel"
+                            acceptMessage="Delete"
+                            onClickAccept={() => {
+                                this.props.deleteRaffleRequest(this.props.raffleId, this.props.organizationId)
+                            }} />
                     </Content>
                 </Page>
             </MainLayout>

@@ -76,7 +76,7 @@ class EditEventPage extends React.Component {
                             value="Delete Event"
                             onClick={() => this.props.deleteEventModalRequest('deleteEvent')} />
                         <ConfirmationDialog
-                            title="Delete Event"
+                            title={`Delete Event: ${this.props.eventForm.name}`}
                             message="Are you sure you want to delete this event?"
                             cancelMessage="Cancel"
                             acceptMessage="Delete"

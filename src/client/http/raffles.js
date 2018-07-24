@@ -127,5 +127,27 @@ export default (client) => ({
             .then(resp => {
                 return resp.data.getIn(['data', 'saveRaffle'])
             }).catch(parseError)
+    },
+    delete (id) {
+        const query = `
+          mutation DeleteRaffle($id: String!) {
+              deleteRaffle(id: $id) {
+                deleted
+              }
+          }
+        `
+
+        const data = {
+            query,
+            variables: {
+                id: id
+            }
+        }
+
+        return client
+            .post('', data)
+            .then(resp => {
+                return resp.data.getIn(['data', 'deleteRaffle'])
+            }).catch(parseError)
     }
 })
