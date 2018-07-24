@@ -54,5 +54,27 @@ export default (client) => ({
                 return resp.data.getIn(['data', 'organization'])
             })
             .catch(parseError)
+    },
+    delete (eventId) {
+        const query = `
+            mutation DeleteOrganization($id:String!){
+              deleteOrganization(id: $id) {
+                deleted
+              }
+            }
+        `
+        const data = {
+            query,
+            variables: {
+                id: eventId
+            }
+        }
+
+        return client
+            .post('', data)
+            .then(resp => {
+                return resp.data.getIn(['data', 'deleteOrganization'])
+            })
+            .catch(parseError)
     }
 })

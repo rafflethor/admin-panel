@@ -1,4 +1,5 @@
 import { List, Map } from 'immutable'
+import { push } from 'react-router-redux'
 
 /**
  * Possible types of action
@@ -24,6 +25,11 @@ export const actionTypes = {
             REQUEST: '@rafflethor/EVENT/UPDATE/REQUEST',
             SUCCESS: '@rafflethor/EVENT/UPDATE/SUCCESS',
             FAILURE: '@rafflethor/EVENT/UPDATE/FAILURE'
+        },
+        DELETE: {
+            MODAL: '@rafflethor/EVENT/DELETE/MODAL',
+            REQUEST: '@rafflethor/EVENT/DELETE/REQUEST',
+            FAILURE: '@rafflethor/EVENT/DELETE/FAILURE'
         }
     }
 }
@@ -105,6 +111,18 @@ export const actionCreators = {
     },
     updateEventFailure: (error) => {
         return { type: actionTypes.EVENT.UPDATE.FAILURE, error }
+    },
+    deleteEventModalRequest: (openModalId) => {
+        return { type: actionTypes.EVENT.DELETE.MODAL, openModalId }
+    },
+    deleteEventRequest: (eventId) => {
+        return { type: actionTypes.EVENT.DELETE.REQUEST, eventId }
+    },
+    deleteEventSuccess: () => {
+        return push('/events')
+    },
+    deleteEventFailure: (error) => {
+        return { type: actionTypes.EVENT.DELETE.FAILURE, error }
     }
 }
 

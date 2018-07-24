@@ -9,7 +9,6 @@ export class Header extends React.Component {
 
     menuToggle (ev) {
         ev.preventDefault()
-        console.log(this.props)
         this.props.showMenu(!this.props.menuVisible)
     }
 
