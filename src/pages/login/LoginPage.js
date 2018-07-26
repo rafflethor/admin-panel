@@ -1,4 +1,5 @@
 import React from 'react'
+import logoText from '../../assets/logo-text.svg'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { LoginLayout } from '../../layouts/LoginLayout'
@@ -10,7 +11,7 @@ import './LoginPage.css'
 const LoginPage = (props) => (
     <LoginLayout>
         <div className="login-form">
-            <h4>Login</h4>
+            <h4><img alt="rafflethor" src={logoText} /></h4>
             <LoginForm
                 error={props.error}
                 onSubmit={props.login} />
