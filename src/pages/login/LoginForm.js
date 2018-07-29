@@ -32,7 +32,7 @@ export class LoginForm extends React.Component {
                 <Button submit
                         className="btn btn-primary btn-flat m-b-30 m-t-30"
                         value="Sign in"
-                        onValues={(values) => this.handleLogin(values)}/>
+                        onClick={(values) => this.handleLogin(values)}/>
             </Form>
         )
     }

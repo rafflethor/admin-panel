@@ -22,7 +22,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => resp.data.getIn(['data', 'saveEvent']))
             .catch(parseError)
     },
@@ -49,7 +49,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'organization'])
             })
@@ -71,7 +71,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'deleteOrganization'])
             })

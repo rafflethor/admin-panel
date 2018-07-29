@@ -21,7 +21,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'listAllRaffles'])
             })
@@ -59,7 +59,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'raffle'])
             }).catch(parseError)
@@ -83,7 +83,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'startRaffle'])
             }).catch(parseError)
@@ -123,7 +123,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'saveRaffle'])
             }).catch(parseError)
@@ -145,7 +145,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'deleteRaffle'])
             }).catch(parseError)
@@ -185,7 +185,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'updateRaffle'])
             }).catch(parseError)

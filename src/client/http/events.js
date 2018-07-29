@@ -20,7 +20,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => resp.data.getIn(['data', 'listAllOrganizations']))
             .catch(parseError)
     }

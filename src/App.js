@@ -24,18 +24,17 @@ class App extends Component {
 
       return (
           <Switch>
-              <Route exact path='/' render={Secured(DashboardPage)} />
+              <Route exact path='/' component={Secured(DashboardPage)} />
+              <Route exact path='/events' component={Secured(EventsPage)} />
+              <Route path='/events/new' component={Secured(NewEventPage)} />
+              <Route exact path='/events/:id' component={Secured(EditEventPage)} />
 
-              <Route exact path='/events' component={EventsPage} />
-              <Route path='/events/new' component={NewEventPage} />
-              <Route exact path='/events/:id' component={EditEventPage} />
+              <Route exact path='/raffles' component={Secured(RafflesPage)} />
+              <Route path='/raffles/new/:eventId' component={Secured(NewRafflePage)} />
+              <Route exact path='/raffles/:id' component={Secured(EditRafflePage)} />
 
-              <Route exact path='/raffles' component={RafflesPage} />
-              <Route path='/raffles/new/:eventId' component={NewRafflePage} />
-              <Route exact path='/raffles/:id' component={EditRafflePage} />
-
-              <Route path='/users' component={UsersPage} />
-              <Route path='/bartolos' component={BartolosPage} />
+              <Route path='/users' component={Secured(UsersPage)} />
+              <Route path='/bartolos' component={Secured(BartolosPage)} />
               <Route path='/login' component={LoginPage} />
           </Switch>
       );
