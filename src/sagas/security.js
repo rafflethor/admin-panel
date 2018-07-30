@@ -15,7 +15,7 @@ export function* login(action) {
 
         if (apiLogin) {
             yield put(actionCreators.loginSuccess(storedLogin))
-            yield put(push('/dashboard'))
+            yield put(push('/'))
         } else {
             yield put(actionCreators.badCredentials())
             yield put(push('/login'))
