@@ -35,13 +35,13 @@ class DashboardPage extends React.Component {
                             </div>
                             <div className="col-md-3">
                                 <CounterPanel
-                                   title='Random lists'
-                                    icon='list'
+                                   title='Live'
+                                    icon='bullhorn'
                                     count={this.props.stats.randomListRaffles} />
                             </div>
                             <div className="col-md-3">
                                 <CounterPanel
-                                    title='Users'
+                                    title='Participants'
                                     icon='users'
                                     count={this.props.stats.users} />
                             </div>

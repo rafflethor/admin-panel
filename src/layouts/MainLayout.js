@@ -14,11 +14,7 @@ import './helper.css'
 class MainLayout extends React.Component {
 
     toggleSidebar (visible) {
-        if (visible) {
-            return 'fix-header'
-        }
-
-        return 'fix-header mini-sidebar'
+        return visible ? 'fix-header' : 'fix-header mini-sidebar'
     }
 
     render () {
@@ -29,7 +25,7 @@ class MainLayout extends React.Component {
                 <div id="main-wrapper">
                     <Header
                         menuVisible={this.props.menuVisible}
-                        showMenu={this.props.showMenu} />
+                        onShowMenu={this.props.showMenu}/>
                     <Sidebar />
                     {this.props.children}
                 </div>

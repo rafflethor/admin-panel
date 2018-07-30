@@ -1,21 +1,19 @@
 import React from 'react'
 
 import logo from '../assets/logo.svg'
-import defaultAvatar from './images/avatar/6.jpg'
 import logoText from '../assets/logo-text.svg'
+import UserMenu from './UserMenu'
 import './Header.css'
 
 export class Header extends React.Component {
 
     menuToggle (ev) {
         ev.preventDefault()
-        this.props.showMenu(!this.props.menuVisible)
+        this.props.onShowMenu(!this.props.menuVisible)
     }
 
     render () {
-        const logoTextStyle = this.props.menuVisible ?
-              {} :
-              { display: 'none' }
+        const logoTextStyle = this.props.menuVisible ? {} : { display: 'none' }
 
         return (
             <div className="header">
@@ -39,25 +37,7 @@ export class Header extends React.Component {
                                 </a>
                             </li>
                         </ul>
-                        <ul className="navbar-nav my-lg-0">
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle text-muted  "
-                                   data-toggle="dropdown"
-                                   aria-haspopup="true"
-                                   aria-expanded="false">
-                                    <img src={defaultAvatar} alt="user" className="profile-pic" />
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right animated zoomIn">
-                                    <ul className="dropdown-user">
-                                        <li><a><i className="ti-user"></i> Profile</a></li>
-                                        <li><a><i className="ti-wallet"></i> Balance</a></li>
-                                        <li><a><i className="ti-email"></i> Inbox</a></li>
-                                        <li><a><i className="ti-settings"></i> Setting</a></li>
-                                        <li><a><i className="fa fa-power-off"></i> Logout</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </ul>
+                        <UserMenu />
                     </div>
                 </nav>
             </div>
