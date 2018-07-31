@@ -37,6 +37,7 @@ export default (client) => ({
                    id
                    name
                    type
+                   status
                 }
               }
             }

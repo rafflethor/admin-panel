@@ -1,0 +1,6 @@
+td > span.label {
+    text-align: center;
+    padding: 5px 10px;
+    display:inline-block;
+    width:100px
+}

@@ -4,6 +4,7 @@ import { Table, Column } from '../../components/table'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Page, Content } from '../../components/page'
+import { Badge } from '../../components/raffles'
 import { Button, Input, Form } from '../../components/input'
 import { ConfirmationDialog } from '../../components/modal'
 import { actionCreators as eventActionCreators } from '../../reducers/event'
@@ -55,6 +56,7 @@ class EditEventPage extends React.Component {
                             onClick={(row) => this.props.showRaffleRequest(row.get('id'))}
                             rows={this.props.raffles} >
                             <Column value="id" head="ID" />
+                            <Column value="status" head="Status" Component={Badge}/>
                             <Column value="name" head="Name" />
                             <Column value="type" head="Type" />
                         </Table>

@@ -1,6 +1,8 @@
 import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
 import { Page, Content } from '../../components/page'
+import { Badge } from '../../components/raffles'
+import { Table, Column } from '../../components/table'
 import { Button, Input, Form } from '../../components/input'
 import { ConfirmationDialog } from '../../components/modal'
 import { connect } from 'react-redux'
@@ -30,6 +32,9 @@ class EditRafflePage extends React.Component {
                 <Page title='Edit Raffle'>
                     <Content className="needs-validation">
                         <Form rules={VALIDATION_RULES} values={this.props.formValues}>
+                            <div className="input-group mb-3">
+                                <Badge value={this.props.formValues.status} />
+                            </div>
                             <label htmlFor="event">Event</label>
                             <div className="input-group mb-3">
                                 <a className="reference"
@@ -37,10 +42,19 @@ class EditRafflePage extends React.Component {
                                     {this.props.organizationName}
                                 </a>
                             </div>
-                            <Input name="name" label="Name" />
-                            <Input name="noWinners" label="No Winners" />
                             <Input type="hidden" name="type" />
                             <Input type="hidden" name="id" />
+                            <Input name="name" label="Name" />
+                            <Input name="noWinners" label="No Winners" />
+                            <label htmlFor="winners">Winners</label>
+                            <Table
+                                onClick={(row) => console.log(row)}
+                                rows={[]} >
+                                <Column value="id" head="ID" />
+                                <Column value="name" head="Name" />
+                                <Column value="when" head="When" />
+                            </Table>
+                        <hr />
                         <Button
                             submit
                             className="mr-3"
@@ -51,7 +65,7 @@ class EditRafflePage extends React.Component {
                         <Button
                             className="btn-danger mr-3"
                             type="button"
-                            value="Delete Event"
+                            value="Delete Raffle"
                             onClick={() => this.props.deleteRaffleModalRequest('deleteEvent')} />
                         <Button
                             type="button"
@@ -83,6 +97,7 @@ const mapStateToProps = (state) => {
             id: state.raffles.getIn(['raffle', 'id']),
             type: state.raffles.getIn(['raffle', 'type']),
             name: state.raffles.getIn(['raffle', 'name']),
+            status: state.raffles.getIn(['raffle', 'status']),
             noWinners: state.raffles.getIn(['raffle', 'noWinners']),
         },
         raffleId: state.raffles.getIn(['raffle', 'id']),

@@ -7,6 +7,7 @@ export default (client) => ({
             listAllRaffles(max: $max, offset: $offset) {
               id
               name
+              status
               noWinners
               type
             }
@@ -34,6 +35,7 @@ export default (client) => ({
                 id
                 name
                 type
+                status
                 noWinners
                 ... on TwitterRaffle {
                   organization {

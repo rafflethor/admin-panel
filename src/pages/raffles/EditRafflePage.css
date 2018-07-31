@@ -8,3 +8,10 @@ div.input-group > a.reference:hover {
     text-decoration: underline !important;
     cursor: pointer;
 }
+
+span.label {
+    text-align: center;
+    padding: 5px 10px;
+    display:inline-block;
+    width:100px
+}

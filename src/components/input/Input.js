@@ -1,7 +1,6 @@
 import React from 'react'
 
-export const Input = ({ error, enabled = true, ...props }) => {
-
+const textInput = ({error, ...props}) => {
     const errorMessage = error ?
           (<div className="invalid-feedback">{ error }</div>) :
           (<div/>)
@@ -24,4 +23,14 @@ export const Input = ({ error, enabled = true, ...props }) => {
             </div>
         </div>
     )
+}
+
+const hiddenInput = (props) => {
+    return (
+        <input {...props} aria-describedby="basic-addon3" />
+    )
+}
+
+export const Input = (props) => {
+    return props.type === 'hidden' ? hiddenInput(props) : textInput(props)
 }
