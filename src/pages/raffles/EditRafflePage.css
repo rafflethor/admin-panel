@@ -9,6 +9,10 @@ div.input-group > a.reference:hover {
     cursor: pointer;
 }
 
+button.btn {
+    width: 150px;
+}
+
 span.label {
     text-align: center;
     padding: 5px 10px;

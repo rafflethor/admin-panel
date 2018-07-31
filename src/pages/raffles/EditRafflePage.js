@@ -59,18 +59,18 @@ class EditRafflePage extends React.Component {
                             submit
                             className="mr-3"
                             type="button"
-                            value="Update Raffle"
+                            value="Update"
                             onClick={(vals) => this.props.updateRaffleRequest(vals, this.props.organizationId)} />
                         </Form>
                         <Button
                             className="btn-danger mr-3"
                             type="button"
-                            value="Delete Raffle"
+                            value="Delete"
                             onClick={() => this.props.deleteRaffleModalRequest('deleteEvent')} />
                         <Button
                             type="button"
                             className="btn-warning"
-                            value="Start Raffle"
+                            value="Start"
                             onClick={(v) => this.props.startRaffleRequest(this.props.raffleId)} />
                         <ConfirmationDialog
                             title={`Delete Raffle: ${this.props.formValues.name}`}
