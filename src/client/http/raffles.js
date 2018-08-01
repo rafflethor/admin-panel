@@ -49,6 +49,13 @@ export default (client) => ({
                     name
                   }
                 }
+                winners {
+                  id
+                  nick
+                  ordering
+                  social
+                  createdAt
+                }
             }
          }
         `

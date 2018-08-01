@@ -49,10 +49,12 @@ class EditRafflePage extends React.Component {
                             <label htmlFor="winners">Winners</label>
                             <Table
                                 onClick={(row) => console.log(row)}
-                                rows={[]} >
+                                rows={this.props.formValues.winners} >
                                 <Column value="id" head="ID" />
-                                <Column value="name" head="Name" />
-                                <Column value="when" head="When" />
+                                <Column value="nick" head="Nick" />
+                                <Column value="ordering" head="Order" />
+                                <Column value="social" head="Social" />
+                                <Column value="createdAt" head="When" />
                             </Table>
                         <hr />
                         <Button
@@ -99,6 +101,7 @@ const mapStateToProps = (state) => {
             name: state.raffles.getIn(['raffle', 'name']),
             status: state.raffles.getIn(['raffle', 'status']),
             noWinners: state.raffles.getIn(['raffle', 'noWinners']),
+            winners: state.raffles.getIn(['raffle', 'winners'])
         },
         raffleId: state.raffles.getIn(['raffle', 'id']),
         organizationId: state.raffles.getIn(['raffle', 'organization', 'id']),
