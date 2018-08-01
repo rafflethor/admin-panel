@@ -1,4 +1,5 @@
 import { Map } from 'immutable'
+import { actions as toastrActions, toastr } from 'react-redux-toastr'
 
 /**
  * Possible types of action
@@ -29,16 +30,16 @@ export const initialState = Map({
  */
 const uiReducer = (state = initialState, action) => {
     switch(action.type) {
-    case actionTypes.UI.MENU.SIDE.SHOW:
-        return state
-            .set('menuVisible', action.menuVisible)
+        case actionTypes.UI.MENU.SIDE.SHOW:
+            return state
+                .set('menuVisible', action.menuVisible)
 
-    case actionTypes.UI.MENU.USER.SHOW:
-        return state
-            .set('userMenuVisible', action.userMenuVisible)
+        case actionTypes.UI.MENU.USER.SHOW:
+            return state
+                .set('userMenuVisible', action.userMenuVisible)
 
-    default:
-        return state
+        default:
+            return state
     }
 }
 
@@ -57,6 +58,22 @@ export const actionCreators = {
             type: actionTypes.UI.MENU.USER.SHOW,
             userMenuVisible
         }
+    },
+    successNotification: (title, message) => {
+        return toastrActions.add({
+            type: 'success',
+            title: title,
+            message: message,
+            position: 'top-right'
+        })
+    },
+    failureNotification: (title, message) => {
+        return toastrActions.add({
+            type: 'error',
+            title: title,
+            message: message,
+            position: 'top-right'
+        })
     }
 }
 
