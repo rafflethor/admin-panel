@@ -1,5 +1,5 @@
 import { Map } from 'immutable'
-import { actions as toastrActions, toastr } from 'react-redux-toastr'
+import { actions as toastrActions } from 'react-redux-toastr'
 
 /**
  * Possible types of action
