@@ -1,7 +1,6 @@
 import React from 'react'
 
-export const Input = ({ error, enabled = true, ...props }) => {
-
+const textInput = ({error, iconText, ...props}) => {
     const errorMessage = error ?
           (<div className="invalid-feedback">{ error }</div>) :
           (<div/>)
@@ -12,10 +11,19 @@ export const Input = ({ error, enabled = true, ...props }) => {
           "is-invalid" :
           "is-valid"
 
+    const icon = (icon) => {
+        return icon ? (
+            <div className="input-group-prepend">
+                <div className="input-group-text">{icon}</div>
+            </div>
+        ) : null
+    }
+
     return (
         <div>
             <label htmlFor="basic-url">{props.label}</label>
-            <div className="input-group mb-3">
+            <div className="input-group">
+                { icon(iconText) }
                 <input
                     {...props}
                     className={ `form-control ${fieldClassName} ${definedClassName}` }
@@ -24,4 +32,14 @@ export const Input = ({ error, enabled = true, ...props }) => {
             </div>
         </div>
     )
+}
+
+const hiddenInput = (props) => {
+    return (
+        <input {...props} aria-describedby="basic-addon3" />
+    )
+}
+
+export const Input = (props) => {
+    return props.type === 'hidden' ? hiddenInput(props) : textInput(props)
 }

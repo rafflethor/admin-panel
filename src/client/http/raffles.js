@@ -7,6 +7,7 @@ export default (client) => ({
             listAllRaffles(max: $max, offset: $offset) {
               id
               name
+              status
               noWinners
               type
             }
@@ -21,7 +22,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'listAllRaffles'])
             })
@@ -34,8 +35,13 @@ export default (client) => ({
                 id
                 name
                 type
+                status
                 noWinners
+                preventPreviousWinners
                 ... on TwitterRaffle {
+                  hashtag
+                  since
+                  until
                   organization {
                     id
                     name
@@ -46,6 +52,13 @@ export default (client) => ({
                     id
                     name
                   }
+                }
+                winners {
+                  id
+                  nick
+                  ordering
+                  social
+                  createdAt
                 }
             }
          }
@@ -59,7 +72,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'raffle'])
             }).catch(parseError)
@@ -83,7 +96,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'startRaffle'])
             }).catch(parseError)
@@ -117,13 +130,19 @@ export default (client) => ({
                     name: raffle.name,
                     organizationId: raffle.organizationId,
                     type: raffle.type,
-                    noWinners: raffle.noWinners
+                    noWinners: raffle.noWinners,
+                    preventPreviousWinners: raffle.cangoon,
+                    since: raffle.since,
+                    until: raffle.until,
+                    payload: {
+                        hashtag: raffle.hashtag
+                    }
                 }
             }
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'saveRaffle'])
             }).catch(parseError)
@@ -145,7 +164,7 @@ export default (client) => ({
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'deleteRaffle'])
             }).catch(parseError)
@@ -178,14 +197,21 @@ export default (client) => ({
                 input: {
                     id: raffle.id,
                     name: raffle.name,
+                    organizationId: raffle.organizationId,
                     type: raffle.type,
-                    noWinners: raffle.noWinners
+                    noWinners: raffle.noWinners,
+                    preventPreviousWinners: raffle.preventPreviousWinners,
+                    since: raffle.since,
+                    until: raffle.until,
+                    payload: {
+                        hashtag: raffle.hashtag
+                    }
                 }
             }
         }
 
         return client
-            .post('', data)
+            .post('/graphql', data)
             .then(resp => {
                 return resp.data.getIn(['data', 'updateRaffle'])
             }).catch(parseError)

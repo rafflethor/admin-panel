@@ -9,6 +9,11 @@ export const actionTypes = {
         SUCCESS: '@rafflethor/LOGIN/SUCCESS',
         FAILURE: '@rafflethor/LOGIN/FAILURE',
         BAD_CREDENTIALS: '@rafflethor/LOGIN/BAD_CREDENTIALS'
+    },
+    LOGOUT: {
+        REQUEST: '@rafflethor/LOGOUT/REQUEST',
+        SUCCESS: '@rafflethor/LOGOUT/SUCCESS',
+        FAILURE: '@rafflethor/LOGOUT/FAILURE',
     }
 }
 
@@ -26,27 +31,33 @@ export const initialState = Map({
  */
 const loginReducer = (state = initialState, action) => {
     switch(action.type) {
-    case actionTypes.LOGIN.REQUEST:
-        return state
-            .set('isLoading', true)
+        case actionTypes.LOGOUT.REQUEST:
+        case actionTypes.LOGIN.REQUEST:
+            return state
+                .set('isLoading', true)
 
-    case actionTypes.LOGIN.SUCCESS:
-        return state
-            .set('isLoading', false)
-            .set('login', action.login)
+        case actionTypes.LOGOUT.SUCCESS:
+            return state
+                .set('isLoading', false)
 
-    case actionTypes.LOGIN.FAILURE:
-        return state
-            .set('isLoading', false)
-            .set('error', action.error)
+        case actionTypes.LOGIN.SUCCESS:
+            return state
+                .set('isLoading', false)
+                .set('login', action.login)
 
-    case actionTypes.LOGIN.BAD_CREDENTIALS:
-        return state
-            .set('isLoading', false)
-            .set('error', 'Bad credentials!')
+        case actionTypes.LOGOUT.FAILURE:
+        case actionTypes.LOGIN.FAILURE:
+            return state
+                .set('isLoading', false)
+                .set('error', action.error)
 
-    default:
-        return state
+        case actionTypes.LOGIN.BAD_CREDENTIALS:
+            return state
+                .set('isLoading', false)
+                .set('error', 'Bad credentials!')
+
+        default:
+            return state
     }
 }
 
@@ -75,6 +86,21 @@ export const actionCreators = {
         return {
             type: actionTypes.LOGIN.FAILURE,
             error
+        }
+    },
+    logout: () => {
+        return {
+            type: actionTypes.LOGOUT.REQUEST
+        }
+    },
+    logoutSuccess: () => {
+        return {
+            type: actionTypes.LOGOUT.SUCCESS
+        }
+    },
+    logoutFailure: () => {
+        return {
+            type: actionTypes.LOGOUT.FAILURE
         }
     }
 }

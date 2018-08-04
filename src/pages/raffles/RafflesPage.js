@@ -1,6 +1,7 @@
 import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
 import { Page, Content } from '../../components/page'
+import { Badge } from '../../components/raffles'
 import { Table, Column } from '../../components/table'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -29,6 +30,7 @@ class RafflesPage extends React.Component {
                                 rows={this.props.raffles}>
                                 <Column value="id" head="ID"/>
                                 <Column value="name" head="Name"/>
+                                <Column value="status" head="Status" Component={Badge} />
                                 <Column value="noWinners" head="No Winners"/>
                                 <Column value="type" head="Type"/>
                             </Table>

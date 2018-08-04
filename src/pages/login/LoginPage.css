@@ -5,3 +5,22 @@ div.login-content {
 span.validation-error {
     color: red;
 }
+
+div.login-form img {
+    width: 75%;
+}
+
+div.login-form > a.btn-google {
+    color: white;
+    background: #DD4B39;
+}
+
+div.login-form  a.btn-twitter {
+    color: white;
+    background: #55ACEE;
+}
+
+div.login-form > a.btn-github {
+    color: white;
+    background: #24292e;
+}

@@ -8,16 +8,24 @@ export default class Form extends React.Component {
         this.state = { values, errors };
     }
 
+    handleOnValues (values, callback) {
+        this.setState({ values })
+
+        if (callback) {
+            callback(values)
+        }
+    }
+
     render() {
         let { values, errors } = this.state;
-        let { children,...props } = this.props;
+        let { children, onValues,...props } = this.props;
 
         return (
             <BaseForm
                 {...props}
                 values={this.props.values || values}
                 errors={this.props.errors || errors}
-                onValues={values => this.setState({ values })}
+                onValues={values => this.handleOnValues(values, onValues)}
                 onErrors={errors => this.setState({ errors })}
                 >
                 {children}

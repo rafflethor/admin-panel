@@ -1,7 +1,23 @@
 import React from 'react'
 
-export const Column = ({key, row, value, className}) => {
+const withComponent = ({Component, ...props}) => {
+    const rowValue = props.row.get(props.value)
+
     return (
-        <td key={key} className={className}>{row.get(value)}</td>
+        <td key={props.key} className={props.className}>
+            <Component value={rowValue} />
+        </td>
     )
+}
+
+const withoutComponent = (props) => {
+    return (
+        <td key={props.key} className={props.className}>{props.row.get(props.value)}</td>
+    )
+}
+
+export const Column = (props) => {
+    return props.Component ?
+        withComponent(props) :
+        withoutComponent(props)
 }

@@ -1,5 +1,7 @@
 import { put, call, take, fork, race, takeLatest } from 'redux-saga/effects'
 import { actionCreators, actionTypes } from '../reducers/raffles'
+import { actionCreators as uiActionCreators } from '../reducers/ui'
+
 import {
     actionTypes as modalActionTypes,
     actionCreators as modalActionCreators
@@ -31,9 +33,17 @@ export function* watchSaveRaffle() {
                 const event = saved.getIn(['organization', 'id'])
 
                 yield put(actionCreators.saveRaffleSuccess(event))
+                yield put(uiActionCreators.successNotification(
+                    'Save succeeded',
+                    'Raffle has been saved successfully'
+                ))
             }
         } catch (e) {
             yield put(actionCreators.saveRaffleFailure(e))
+            yield put(uiActionCreators.failureNotification(
+                'Save failed',
+                'Raffle couldnt be saved'
+            ))
         }
     }
 
@@ -56,10 +66,18 @@ export function * watchDeleteRaffle () {
                 yield call(http.raffles.delete, raffleId)
                 yield put(actionCreators.deleteRaffleSuccess(eventId))
                 yield put(modalActionCreators.closeModal())
+                yield put(uiActionCreators.successNotification(
+                    'Deletion succeeded',
+                    'Raffle has been deleted successfully'
+                ))
             }
 
         } catch (error) {
             yield put(actionCreators.deleteRaffleFailure(error))
+            yield put(uiActionCreators.failureNotification(
+                'Delete failed',
+                'Raffle deletion failed'
+            ))
         }
     }
 }
@@ -72,9 +90,17 @@ export function* watchUpdateRaffle() {
             if (raffle) {
                 yield call(http.raffles.update, raffle)
                 yield put(actionCreators.updateRaffleSuccess(eventId))
+                yield put(uiActionCreators.successNotification(
+                    'Update succeeded',
+                    'Raffle has been updated successfully'
+                ))
             }
         } catch (e) {
             yield put(actionCreators.updateRaffleFailure(e))
+            yield put(uiActionCreators.failureNotification(
+                'Update failed',
+                'Raffle couldnt be updated'
+            ))
         }
     }
 

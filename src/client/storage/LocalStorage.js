@@ -15,7 +15,13 @@ export class LocalStorage {
      * @since 0.1.0
      */
     get (key) {
-        return JSON.parse(window.localStorage.getItem(key))
+        const value = window.localStorage.getItem(key)
+
+        if (value && value !== 'undefined') {
+            return JSON.parse(value)
+        }
+
+        return null
     }
 
     /**
