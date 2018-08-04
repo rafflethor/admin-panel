@@ -15,15 +15,16 @@ import './EditRafflePage.css'
 const VALIDATION_RULES = {
     name: 'required|min:5|max:100',
     type: 'required|in:TWITTER,LIVE',
-    cangoon: 'required',
     noWinners: 'required|integer',
+    preventPreviousWinners: 'required'
 }
 
 const TWITTER_VALIDATION_RULES = {
     name: 'required|min:5|max:100',
-    type: 'required|in:TWITTER,LIVE',
-    hashtag: 'required|min:5',
-    noWinners: 'required|integer|min:1'
+    type: 'required',
+    noWinners: 'required|integer|min:1',
+    preventPreviousWinners: 'required',
+    hashtag: 'required|min:5'
 }
 
 const RaffleActions = (props) => {
