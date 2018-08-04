@@ -27,7 +27,7 @@ class MainLayout extends React.Component {
                         menuVisible={this.props.menuVisible}
                         onShowMenu={this.props.showMenu}/>
                     <Sidebar />
-                    <ReduxToastr preventDuplicates position="bottom-left"/>
+                    <ReduxToastr position="bottom-left"/>
                     {this.props.children}
                 </div>
             </div>

@@ -1,8 +1,7 @@
 import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
-import { Form } from 'react-validify'
 import { Page, Content } from '../../components/page'
-import { Button, Text, Select } from '../../components/input'
+import { Button, Input, Select, Form } from '../../components/input'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actionCreators as rafflesActionCreators } from '../../reducers/raffles'
@@ -13,13 +12,18 @@ import './NewRafflePage.css'
 const VALIDATION_RULES = {
     name: 'required|min:5|max:100',
     type: 'required|in:TWITTER,LIVE',
-    noWinners: 'required|integer'
+    cangoon: 'required',
+    noWinners: 'required|integer',
 }
 
-const RAFFLE_TYPES = [
-    { value: 'TWITTER', label: 'TWITTER' },
-    { value: 'LIVE', label: 'LIVE' }
-]
+const TWITTER_VALIDATION_RULES = {
+    name: 'required|min:5|max:100',
+    type: 'required|in:TWITTER,LIVE',
+    hashtag: 'required|min:5',
+    noWinners: 'required|integer|min:1',
+    since: 'required|date',
+    until: 'required|date'
+}
 
 /**
  *
@@ -29,7 +33,12 @@ class NewRafflePage extends React.Component {
 
     constructor (props) {
         super(props)
-        this.state = {type: ''}
+        this.state = {
+            values: {
+                type: 'LIVE',
+                cangoon: "yes"
+            }
+        }
     }
 
     getEventId () {
@@ -40,16 +49,28 @@ class NewRafflePage extends React.Component {
         this.props.getDetailInfoRequest(this.getEventId())
     }
 
-    handleChange (ev) {
-        this.setState({type: ev.target.value})
+    isTwitter () {
+        return this.state.values.type !== 'TWITTER'
+    }
+
+    getValidationRules () {
+        switch (this.state.values.type) {
+            case 'TWITTER': return TWITTER_VALIDATION_RULES
+            default:
+                return VALIDATION_RULES
+        }
     }
 
     render () {
+        const validationRules = this.getValidationRules()
+
         return (
             <MainLayout>
                 <Page title='Edit Raffle'>
                     <Content className="needs-validation">
-                        <Form rules={VALIDATION_RULES}>
+                        <Form rules={validationRules}
+                              values={this.state.values}
+                              onValues={(values) => this.setState({values})}>
                             <label htmlFor="event">Event</label>
                             <div className="input-group mb-3">
                                 <a className="reference"
@@ -57,19 +78,51 @@ class NewRafflePage extends React.Component {
                                     {this.props.eventName}
                                 </a>
                             </div>
-                            <Select name="type"
-                                    value={this.state.type}
-                                    options={RAFFLE_TYPES}
-                                    onChange={(ev) => this.handleChange(ev) } />
-                            <Text name="name"
-                                  label="Name"
-                                  text={this.props.name} />
-                            <Text name="noWinners"
-                                  label="No Winners"
-                                  text={this.props.type} />
+                            <div className="form-row">
+                                <div className="form-group col-md-4">
+                                    <Input name="name" label="Name" />
+                                </div>
+                                <div className="form-group col-md-2">
+                                    <Input type="number" name="noWinners" label="No Winners" />
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-2">
+                                    <Select name="preventPreviousWinners" label="Prevent previous winners ?">
+                                        <option value='true'>Yes</option>
+                                        <option value='false'>No</option>
+                                    </Select>
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-2">
+                                    <Select name="type" label="Type">
+                                        <option value='TWITTER'>TWITTER</option>
+                                        <option value='LIVE'>LIVE</option>
+                                    </Select>
+                                </div>
+                            </div>
+                            { this.isTwitter() || (
+                                <React.Fragment>
+                                    <div className="form-row">
+                                        <div className="form-group col-md-2">
+                                            <Input type="text" name="hashtag" label="Hashtag" iconText="#"/>
+                                        </div>
+                                    </div>
+                                    <div className="form-row">
+                                        <div className="form-group col-md-2">
+                                            <Input type="datetime-local" name="since" label="Since" />
+                                        </div>
+                                        <div className="form-group col-md-2">
+                                            <Input type="datetime-local" name="until" label="Until" />
+                                        </div>
+                                    </div>
+                                </React.Fragment>)
+                            }
                         <Button
                             submit
                             type="button"
+                            className="mt-3"
                             value="Save Raffle"
                             onClick={(vals) => this.props.saveRaffleRequest({...vals, organizationId: this.getEventId()})} />
                         </Form>

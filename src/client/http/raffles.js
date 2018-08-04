@@ -37,7 +37,11 @@ export default (client) => ({
                 type
                 status
                 noWinners
+                preventPreviousWinners
                 ... on TwitterRaffle {
+                  hashtag
+                  since
+                  until
                   organization {
                     id
                     name
@@ -126,7 +130,13 @@ export default (client) => ({
                     name: raffle.name,
                     organizationId: raffle.organizationId,
                     type: raffle.type,
-                    noWinners: raffle.noWinners
+                    noWinners: raffle.noWinners,
+                    preventPreviousWinners: raffle.cangoon,
+                    since: raffle.since,
+                    until: raffle.until,
+                    payload: {
+                        hashtag: raffle.hashtag
+                    }
                 }
             }
         }
@@ -187,8 +197,15 @@ export default (client) => ({
                 input: {
                     id: raffle.id,
                     name: raffle.name,
+                    organizationId: raffle.organizationId,
                     type: raffle.type,
-                    noWinners: raffle.noWinners
+                    noWinners: raffle.noWinners,
+                    preventPreviousWinners: raffle.preventPreviousWinners,
+                    since: raffle.since,
+                    until: raffle.until,
+                    payload: {
+                        hashtag: raffle.hashtag
+                    }
                 }
             }
         }

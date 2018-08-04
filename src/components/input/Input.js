@@ -1,6 +1,6 @@
 import React from 'react'
 
-const textInput = ({error, ...props}) => {
+const textInput = ({error, iconText, ...props}) => {
     const errorMessage = error ?
           (<div className="invalid-feedback">{ error }</div>) :
           (<div/>)
@@ -11,10 +11,19 @@ const textInput = ({error, ...props}) => {
           "is-invalid" :
           "is-valid"
 
+    const icon = (icon) => {
+        return icon ? (
+            <div className="input-group-prepend">
+                <div className="input-group-text">{icon}</div>
+            </div>
+        ) : null
+    }
+
     return (
         <div>
             <label htmlFor="basic-url">{props.label}</label>
-            <div className="input-group mb-3">
+            <div className="input-group">
+                { icon(iconText) }
                 <input
                     {...props}
                     className={ `form-control ${fieldClassName} ${definedClassName}` }

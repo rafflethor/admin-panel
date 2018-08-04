@@ -17,16 +17,15 @@ export class Select extends React.Component {
     }
 
     render () {
+        const { name, label } = this.props
+        const className = this.getValidationClassName()
+
         return (
             <div>
-                <label htmlFor={this.props.name}>{this.props.label}</label>
-                <div className="input-group mb-3">
-                    <select error={this.props.error}
-                            className={this.getValidationClassName()}
-                            name={this.props.name}
-                            value={this.props.value}
-                            onChange={this.props.onChange} >
-                        {this.buildOptions()}
+                <label htmlFor={name}>{label}</label>
+                <div className="input-group">
+                    <select className={className} {...this.props}>
+                        {this.props.children}
                     </select>
                     { this.buildErrorMessage() }
                 </div>
