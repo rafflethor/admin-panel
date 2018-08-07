@@ -1,6 +1,6 @@
 import React from 'react'
 import MainLayout from '../../layouts/MainLayout'
-import { Table, Column } from '../../components/table'
+import BootstrapTable from 'react-bootstrap-table-next';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Page, Content } from '../../components/page'
@@ -12,6 +12,19 @@ import { actionCreators as rafflesActionCreators } from '../../reducers/raffles'
 import { withRouter } from 'react-router-dom'
 
 import './EditEventPage.css'
+
+const RAFFLE_COLUMNS = [
+    {dataField: 'id', text: 'ID'},
+    {
+        dataField: 'status',
+        text: 'Status',
+        formatter: (cell, row) => (<Badge value={row.status}/>),
+        align: 'center',
+        headerAlign: 'center'
+    },
+    {dataField: 'name', text: 'Name'},
+    {dataField: 'type', text: 'Type'}
+]
 
 const VALIDATION_RULES = {
     name: 'required|min:5|max:100',
@@ -28,6 +41,9 @@ class EditEventPage extends React.Component {
     constructor (props) {
         super(props)
         this.state = {isModalOpen: false}
+        this.rowEvents = {
+            onClick: (e, row) => this.props.showRaffleRequest(row.id)
+        }
     }
 
     componentDidMount () {
@@ -52,14 +68,12 @@ class EditEventPage extends React.Component {
                             <Input name="description" label="Description"/>
                         </Form>
                         <label htmlFor="raffles">Raffles</label>
-                        <Table
-                            onClick={(row) => this.props.showRaffleRequest(row.get('id'))}
-                            rows={this.props.raffles} >
-                            <Column value="id" head="ID" />
-                            <Column value="status" head="Status" Component={Badge}/>
-                            <Column value="name" head="Name" />
-                            <Column value="type" head="Type" />
-                        </Table>
+                        <BootstrapTable
+                            keyField="id"
+                            bordered={false}
+                            rowEvents={this.rowEvents}
+                            data={this.props.raffles.toJS()}
+                            columns={RAFFLE_COLUMNS} />
                         <hr />
                         <Button
                             submit
