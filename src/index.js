@@ -7,6 +7,7 @@ import { ConnectedRouter, routerMiddleware as createRouterMiddleware } from 'rea
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { createLogger } from 'redux-logger'
+import { sseMiddleware } from './client/sse'
 
 import './index.css'
 import App from './App'
@@ -37,7 +38,7 @@ const logger = createLogger({
  */
 const store = createStore(
     rootReducer,
-    applyMiddleware(sagaMiddleware, routerMiddleware, logger)
+    applyMiddleware(sagaMiddleware, routerMiddleware, sseMiddleware, logger)
 )
 
 /**
@@ -50,9 +51,9 @@ sagaMiddleware.run(rootSaga)
  */
 ReactDOM.render(
     <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <App />
-        </ConnectedRouter>
+    <ConnectedRouter history={history}>
+    <App />
+    </ConnectedRouter>
     </Provider>,
     document.getElementById('root')
 )

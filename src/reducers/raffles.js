@@ -17,11 +17,6 @@ export const actionTypes = {
             SUCCESS: '@rafflethor/RAFFLES/DETAIL/SUCCESS',
             FAILURE: '@rafflethor/RAFFLES/DETAIL/FAILURE'
         },
-        START: {
-            REQUEST: '@rafflethor/RAFFLES/START/REQUEST',
-            SUCCESS: '@rafflethor/RAFFLES/START/SUCCESS',
-            FAILURE: '@rafflethor/RAFFLES/START/FAILURE'
-        },
         SAVE: {
             REQUEST: '@rafflethor/RAFFLES/SAVE/REQUEST',
             FAILURE: '@rafflethor/RAFFLES/SAVE/FAILURE'
@@ -36,7 +31,8 @@ export const actionTypes = {
             REQUEST: '@rafflethor/RAFFLES/UPDATE/REQUEST',
             SUCCESS: '@rafflethor/RAFFLES/UPDATE/SUCCESS',
             FAILURE: '@rafflethor/RAFFLES/UPDATE/FAILURE'
-        }
+        },
+        TAB: '@rafflethor/RAFFLES/TAB'
     }
 }
 
@@ -47,7 +43,8 @@ export const initialState = Map({
     isLoading: false,
     error: null,
     raffle: Map(),
-    raffles: List()
+    raffles: List(),
+    tab: 'DETAILS'
 })
 
 /**
@@ -74,6 +71,10 @@ const rafflesReducer = (state = initialState, action) => {
             return state
                 .set('isLoading', false)
                 .set('raffle', action.raffle)
+
+        case actionTypes.RAFFLES.TAB:
+            return state
+                .set('tab', action.tab)
 
         default:
             return state
@@ -104,15 +105,6 @@ export const actionCreators = {
     },
     getRaffleDetailsFailure: (error) => {
         return { type: actionTypes.RAFFLES.DETAIL.FAILURE, error }
-    },
-    startRaffleRequest: (id) => {
-        return { type: actionTypes.RAFFLES.START.REQUEST, id }
-    },
-    startRaffleSuccess: (id) => {
-        return { type: actionTypes.RAFFLES.START.SUCCESS, id }
-    },
-    startRaffleFailure: (error) => {
-        return { type: actionTypes.RAFFLES.START.FAILURE, error }
     },
     showEventInfoRequest: (eventId) => {
         return eventActionCreators.showEventRequest(eventId)
@@ -146,6 +138,18 @@ export const actionCreators = {
     },
     deleteRaffleFailure: (error) => {
         return { type: actionTypes.RAFFLES.DELETE.FAILURE, error }
+    },
+    changeToDetails: () => {
+        return {
+            type: actionTypes.RAFFLES.TAB,
+            tab: 'DETAILS'
+        }
+    },
+    changeToManagement: () => {
+        return {
+            type: actionTypes.RAFFLES.TAB,
+            tab: 'MANAGEMENT'
+        }
     }
 }
 

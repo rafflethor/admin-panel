@@ -59,6 +59,7 @@ export default (client) => ({
                   ordering
                   social
                   createdAt
+                  isValid
                 }
             }
          }
@@ -215,5 +216,5 @@ export default (client) => ({
             .then(resp => {
                 return resp.data.getIn(['data', 'updateRaffle'])
             }).catch(parseError)
-    },
+    }
 })

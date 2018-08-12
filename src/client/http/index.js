@@ -8,6 +8,7 @@ import dashboard from './dashboard'
 import events from './events'
 import event from './event'
 import raffles from './raffles'
+import management from './management'
 
 /**
  * Default http client. Authorization header is calling
@@ -21,7 +22,7 @@ export const client = axios.create({
         'Content-Type': 'application/json',
         'Accept': 'application/json'
     },
-    baseURL: 'http://localhost:5050',
+    baseURL: process.env.REACT_APP_API_URL_BASE,
     transformResponse: [ (data) => {
         const payload = fromJS(JSON.parse(data))
         const errors = payload.getIn(['errors'])
@@ -64,5 +65,6 @@ export default {
     dashboard: dashboard(client),
     events: events(client),
     event: event(client),
-    raffles: raffles(client)
+    raffles: raffles(client),
+    management: management(client)
 }

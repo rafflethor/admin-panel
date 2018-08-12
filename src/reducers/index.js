@@ -6,6 +6,7 @@ import eventsReducers from './events'
 import eventReducers from './event'
 import rafflesReducers from './raffles'
 import modalReducers from './modal'
+import managementReducers from './management'
 import { reducer as toastrReducer } from 'react-redux-toastr'
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
     event: eventReducers,
     raffles: rafflesReducers,
     modal: modalReducers,
+    management: managementReducers,
     toastr: toastrReducer
 })

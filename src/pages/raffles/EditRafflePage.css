@@ -19,3 +19,20 @@ span.label {
     display:inline-block;
     width:100px
 }
+
+div.padding-2 {
+    padding: 1.5em;
+}
+
+a.nav-link {
+    cursor: pointer;
+}
+
+button.liveButton {
+  animation: waiting infinite 1s linear;
+}
+
+@keyframes waiting {
+    from { background-color: #9891c2; }
+    to { background-color: #5c4ac7; }
+}

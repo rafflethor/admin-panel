@@ -6,6 +6,7 @@ import eventsSagas from './events'
 import eventSagas from './event'
 import rafflesSagas from './raffles'
 import raffleSagas from './raffle'
+import managementSagas from './management'
 
 export default function* rootSaga () {
     yield all([
@@ -14,6 +15,7 @@ export default function* rootSaga () {
         ...eventsSagas,
         ...eventSagas,
         ...rafflesSagas,
-        ...raffleSagas
+        ...raffleSagas,
+        ...managementSagas
     ])
 }
