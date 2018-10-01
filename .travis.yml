@@ -19,11 +19,10 @@ cache:
   yarn: true
 
 script:
-  - yarn install
-  - yarn run build
+  - ./ci.sh build
 
 deploy:
   provider: script
-  script: ci/deploy.sh
+  script: ./ci.sh update
   on:
     branch: master
