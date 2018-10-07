@@ -26,7 +26,7 @@ echo $K8S_CA_CRT | base64 --decode -i > ${HOME}/ca.crt
 K8S_USER_TOKEN=$(echo $K8S_USER_TOKEN | base64 -d)
 
 # Docker variables to deploy Docker to a Docker repo
-DOCKER_VERSION="1.0.2"
+DOCKER_VERSION="1.0.3"
 DOCKER_IMAGE="rafflethor-docker-rafflethor.bintray.io/admin-panel:${DOCKER_VERSION}"
 BINTRAY_REPO="rafflethor-docker-rafflethor.bintray.io"
 

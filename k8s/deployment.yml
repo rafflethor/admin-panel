@@ -16,7 +16,7 @@ spec:
         tier: adminpanel
     spec:
       containers:
-      - image: rafflethor-docker-rafflethor.bintray.io/admin-panel:1.0.1
+      - image: rafflethor-docker-rafflethor.bintray.io/admin-panel:1.0.3
         name: adminpanel
         ports:
         - containerPort: 80
