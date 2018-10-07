@@ -13,7 +13,7 @@ const VALIDATION_RULES = {
     name: 'required|min:5|max:100',
     type: 'required|in:TWITTER,LIVE',
     cangoon: 'required',
-    noWinners: 'required|integer',
+    noWinners: 'required|integer'
 }
 
 const TWITTER_VALIDATION_RULES = {

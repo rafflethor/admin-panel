@@ -40,6 +40,10 @@ class DetailsPage extends React.Component {
         return this.props.formValues.type !== 'TWITTER'
     }
 
+    isLive () {
+        return this.props.formValues.type === 'LIVE'
+    }
+
     getValidationRules () {
         switch (this.state.values.type) {
         case 'TWITTER': return TWITTER_VALIDATION_RULES
@@ -65,6 +69,13 @@ class DetailsPage extends React.Component {
                             </div>
                         </div>
                     </div>
+                    { this.isLive() && (
+                        <div className="form-row">
+                            <div className="form-group col-md-2">
+                                <Input type="text" name="code" label="Participation code" />
+                            </div>
+                        </div>
+                    )}
                     <div className="form-row">
                         <div className="form-group col-md-4">
                             <Input type="hidden" name="organizationId" />
@@ -139,6 +150,7 @@ const mapStateToProps = (state) => {
             id: state.raffles.getIn(['raffle', 'id']),
             type: state.raffles.getIn(['raffle', 'type']),
             name: state.raffles.getIn(['raffle', 'name']),
+            code: state.raffles.getIn(['raffle', 'code']),
             status: state.raffles.getIn(['raffle', 'status']),
             hashtag: state.raffles.getIn(['raffle', 'hashtag']),
             since: state.raffles.getIn(['raffle', 'since']),

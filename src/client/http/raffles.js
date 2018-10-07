@@ -48,6 +48,7 @@ export default (client) => ({
                   }
                 }
                 ... on RandomListRaffle {
+                  code
                   organization {
                     id
                     name
@@ -205,7 +206,8 @@ export default (client) => ({
                     since: raffle.since,
                     until: raffle.until,
                     payload: {
-                        hashtag: raffle.hashtag
+                        hashtag: raffle.hashtag,
+                        code: raffle.code
                     }
                 }
             }
